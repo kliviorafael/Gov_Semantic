@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração - Ferramenta de Anotação</title>
+    <!-- Usando Pico.css para um visual limpo sem esforço -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <style>
+        body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        main { max-width: 600px; width: 100%; }
+        #novo-nome-grupo { display: none; } /* Começa oculto */
+    </style>
+</head>
+<body>
+    <main class="container">
+        <article>
+            <h1 style="text-align: center;">Ferramenta de Anotação</h1>
+            <p>Por favor, identifique-se e escolha a API que deseja anotar.</p>
+
+            <form id="setup-form">
+                <!-- 1. Seleção ou Entrada de Nome -->
+                <fieldset>
+                    <label for="especialista-select">Quem está anotando?</label>
+                    <select id="especialista-select" name="especialista_nome_select" required>
+                        <option value="" selected>Carregando especialistas...</option>
+                        <!-- Nomes da API /listar_especialistas virão aqui -->
+                        <option value="__outro__">-- Outro (Primeira vez) --</option>
+                    </select>
+                </fieldset>
+
+                <fieldset id="novo-nome-grupo">
+                    <label for="novo-nome-input">Digite seu nome completo (use este nome sempre)</label>
+                    <input type="text" id="novo-nome-input" name="especialista_nome_novo" placeholder="Ex: João da Silva">
+                </fieldset>
+
+                <!-- 2. Seleção da Coleção (API) -->
+                <fieldset>
+                    <label for="collection-select">Qual API você vai anotar?</label>
+                    <select id="collection-select" name="collection_name" required>
+                        <option value="" disabled selected>Escolha uma API...</option>
+                        <option value="ibge_para_anotar">API de Localidades do IBGE</option>
+                        <option value="bc_para_anotar">API SGS do Banco Central</option>
+                        <option value="camara_para_anotar">API da Câmara dos Deputados</option>
+                        <option value="tse_para_anotar">API de Dados Eleitorais do TSE</option>
+                        <option value="cgu_para_anotar">API do Portal da Transparência (CGU)</option>
+                        <option value="senado_para_anotar">API do Senado Federal</option>
+                    </select>
+                </fieldset>
+
+                <button typeC="submit" id="start-btn" aria-busy="false">Começar Anotação</button>
+            </form>
+        </article>
+    </main>
+
+    <script>
+        // URL da sua API no Render
+        const API_BASE_URL = 'https://api-mestrado-anotacao.onrender.com';
+        
+        const especialistaSelect = document.getElementById('especialista-select');
+        const novoNomeGrupo = document.getElementById('novo-nome-grupo');
+        const novoNomeInput = document.getElementById('novo-nome-input');
+        const collectionSelect = document.getElementById('collection-select');
+        const setupForm = document.getElementById('setup-form');
+        const startBtn = document.getElementById('start-btn');
+
+        // 1. Carregar especialistas existentes
+        async function carregarEspecialistas() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/listar_especialistas`);
+                if (!response.ok) throw new Error('Não foi possível carregar a lista.');
+                
+                const nomes = await response.json();
+                
+                especialistaSelect.innerHTML = '<option value="" disabled selected>Selecione seu nome...</option>'; // Limpa o "Carregando..."
+                
+                nomes.forEach(nome => {
+                    const option = document.createElement('option');
+                    option.value = nome;
+                    option.textContent = nome;
+                    especialistaSelect.appendChild(option);
+                });
+
+                especialistaSelect.appendChild(new Option('-- Outro (Primeira vez) --', '__outro__'));
+
+            } catch (error) {
+                console.error('Erro ao carregar especialistas:', error);
+                especialistaSelect.innerHTML = '<option value="__outro__" selected>Erro ao carregar lista. Por favor, digite seu nome.</option>';
+                novoNomeGrupo.style.display = 'block';
+                novoNomeInput.required = true;
+            }
+        }
+
+        // 2. Controlar visibilidade do campo "Outro Nome"
+        especialistaSelect.addEventListener('change', () => {
+            if (especialistaSelect.value === '__outro__') {
+                novoNomeGrupo.style.display = 'block';
+                novoNomeInput.required = true;
+                novoNomeInput.focus();
+            } else {
+                novoNomeGrupo.style.display = 'none';
+                novoNomeInput.required = false;
+            }
+        });
+
+        // 3. Lógica do Botão "Começar"
+        setupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            startBtn.setAttribute('aria-busy', 'true');
+            startBtn.disabled = true;
+
+            let nomeDigitado;
+            if (especialistaSelect.value === '__outro__') {
+                nomeDigitado = novoNomeInput.value;
+            } else {
+                nomeDigitado = especialistaSelect.value;
+            }
+            
+            const collectionName = collectionSelect.value;
+
+            if (!nomeDigitado || !collectionName) {
+                alert('Por favor, preencha seu nome e escolha uma API.');
+                startBtn.setAttribute('aria-busy', 'false');
+                startBtn.disabled = false;
+                return;
+            }
+
+            try {
+                // 4. Chamar a API para obter o ID fixo
+                const response = await fetch(`${API_BASE_URL}/obter_id_fixo`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome_digitado: nomeDigitado })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Erro ao registrar especialista.');
+                }
+
+                const specialistId = data.id_fixo;
+
+                // 5. Salvar no sessionStorage (temporário para a sessão do navegador)
+                sessionStorage.setItem('specialist_id', specialistId);
+                sessionStorage.setItem('specialist_name', nomeDigitado); // Guarda o nome para exibição
+                sessionStorage.setItem('collection_name', collectionName);
+
+                // 6. Redirecionar para a página de anotação
+                window.location.href = 'annotate.html';
+
+            } catch (error) {
+                console.error('Erro no setup:', error);
+                alert(`Erro: ${error.message}`);
+                startBtn.setAttribute('aria-busy', 'false');
+                startBtn.disabled = false;
+            }
+        });
+
+        // Carregar a lista de especialistas assim que a página abre
+        document.addEventListener('DOMContentLoaded', carregarEspecialistas);
+    </script>
+</body>
+</html>

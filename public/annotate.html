@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anotação - Ferramenta de Anotação</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <style>
+        body { padding-top: 80px; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+        main { max-width: 960px; }
+        /* Estilo para o campo "Outra" */
+        #outro-container { display: flex; align-items: center; gap: 10px; }
+        #outro-container input[type="text"] { margin-bottom: 0; }
+        /* Mostra que o campo está desabilitado até a opção ser marcada */
+        #outro-input { background-color: #f4f5f7; } 
+        #radio-outro:checked ~ #outro-container #outro-input { background-color: white; }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho Fixo -->
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Ferramenta de Anotação</strong></li>
+        </ul>
+        <ul>
+            <li><span id="nav-info">Carregando...</span></li>
+            <li><a href="index.html" role="button" class="secondary outline">Mudar API / Especialista</a></li>
+        </ul>
+    </nav>
+
+    <!-- Card Principal de Anotação -->
+    <main class="container">
+        <article id="annotation-card" aria-busy="true">
+            <!-- Cabeçalho do Card (será preenchido pelo JS) -->
+            <header id="card-header">
+                Carregando próximo item para anotar...
+            </header>
+
+            <!-- Conteúdo (Contexto + Ação) -->
+            <div id="card-body">
+                <!-- Seção de Contexto (será preenchida pelo JS) -->
+                <details open>
+                    <summary>Contexto do Campo</summary>
+                    <ul id="item-context">
+                        <!-- JS vai preencher aqui -->
+                    </ul>
+                </details>
+                
+                <!-- Seção da Descrição (será preenchida pelo JS) -->
+                <details open>
+                    <summary>Descrição (Anotação Nível 1)</summary>
+                    <blockquote id="item-description">
+                        <!-- JS vai preencher aqui -->
+                    </blockquote>
+                </details>
+
+                <!-- Seção de Ação (Formulário) -->
+                <form id="annotation-form" style="display: none;">
+                    <h5>Qual é a anotação semântica correta (Nível 2)?</h5>
+                    <fieldset id="sugestoes-container">
+                        <!-- JS vai preencher as sugestões aqui -->
+                    </fieldset>
+                    
+                    <button type="submit" id="save-btn">Salvar e Próximo</button>
+                </form>
+            </div>
+
+            <!-- Mensagem de Conclusão (inicialmente oculta) -->
+            <footer id="finished-message" style="display: none;">
+                <h5>Parabéns!</h5>
+                <p>Você concluiu todas as anotações para esta API. Muito obrigado!</p>
+                <a href="index.html" role="button" class="contrast">Anotar outra API</a>
+            </footer>
+        </article>
+    </main>
+
+    <!-- O Cérebro da Página -->
+    <script src="script.js"></script>
+</body>
+</html>
