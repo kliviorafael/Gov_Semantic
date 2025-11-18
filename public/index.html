@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início - Ferramenta de Anotação Semântica</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <style>
+        main {
+            max-width: 960px;
+            margin: 2rem auto;
+        }
+        header {
+            text-align: center;
+            border-bottom: 1px solid var(--pico-muted-border-color);
+            padding-bottom: 1rem;
+        }
+        header p {
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+        article {
+            padding: 2rem;
+        }
+        #new-specialist-container {
+            display: none; /* Começa oculto */
+            margin-top: 1rem;
+        }
+        #error-message {
+            color: var(--pico-color-red-500);
+            display: none; /* Começa oculto */
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        
+        <!-- 1. Cabeçalho Acadêmico -->
+        <header>
+            <p>Instituto Federal de Educação, Ciência e Tecnologia da Paraíba</p>
+            <p>Campus João Pessoa</p>
+            <p>Programa de Pós-Graduação em Tecnologia da Informação</p>
+            <p>Nível Mestrado Profissional</p>
+            <br>
+            <p><strong>Aluno:</strong> Klivio Rafael Nunes e Silva</p>
+            <p><strong>Orientador:</strong> Prof. Dr. Diego Ernesto Rosa Pessoa</p>
+        </header>
+
+        <!-- 2. Artigo Principal (Introdução + Formulário) -->
+        <article>
+            <h3 style="text-align: center;">Ferramenta de Anotação Semântica</h3>
+
+            <!-- 3. Introdução Amigável -->
+            <h5>Olá, especialista!</h5>
+            <p>
+                Seja bem-vindo(a) e muito obrigado por sua participação. Esta ferramenta é parte de uma pesquisa de mestrado que tem como objetivo validar um método para enriquecer semanticamente APIs do governo brasileiro.
+            </p>
+
+            <h5>Como funciona a atividade?</h5>
+            <p>O processo é bem direto:</p>
+            <ol>
+                <li><strong>Contexto:</strong> Você verá um campo de uma API (com sua descrição, tipo, exemplo, etc.).</li>
+                <li><strong>Sugestões:</strong> Você verá 3 sugestões de "tags" semânticas (do padrão Schema.org) pré-selecionadas para esse campo.</li>
+                <li><strong>Sua Tarefa:</strong> Sua missão é avaliar essas sugestões e escolher a tag que melhor descreve o campo.</li>
+                <li><strong>O Campo "Outra":</strong> Se nenhuma das 3 sugestões parecer correta, <strong>por favor, use o campo 'Outra'</strong> para digitar a tag que você, como especialista, julga ser a mais adequada. Se possível, tente usar um padrão de dicionário de dados (como o próprio <a href="https://schema.org/docs/full.html" target="_blank">Schema.org</a>) para manter a consistência. Esta é uma das contribuições mais importantes!</li>
+            </ol>
+    
+            <h5>Uso dos Dados</h5>
+            <p>
+                Os dados coletados aqui serão usados exclusivamente para fins acadêmicos. O objetivo é calcular a concordância entre os especialistas (IAA) e gerar um "dataset de ouro" (golden dataset) para treinar e avaliar modelos de IA.
+            </p>
+
+            <hr>
+
+            <!-- 4. Formulário de Setup -->
+            <form id="setup-form">
+                <h4>Iniciando a Anotação</h4>
+                <p>Por favor, identifique-se e escolha qual API deseja anotar.</p>
+
+                <!-- Seleção de Especialista -->
+                <label for="specialist-select">Quem está anotando?</label>
+                <select id="specialist-select" required>
+                    <option value="" disabled selected>Carregando especialistas...</option>
+                    <!-- Opções serão preenchidas pelo JavaScript -->
+                    <option value="__novo__">Outro (primeiro acesso)</option>
+                </select>
+                
+                <!-- Campo para novo especialista (oculto) -->
+                <div id="new-specialist-container">
+                    <label for="specialist-new-name">Digite seu nome completo:</label>
+                    <input type="text" id="specialist-new-name" name="specialist-new-name" placeholder="Ex: João Silva" autocomplete="off">
+                </div>
+
+                <!-- Seleção de API (Coleção) -->
+                <label for="collection-select">Qual API você vai anotar?</label>
+                <select id="collection-select" required>
+                    <option value="" disabled selected>Escolha uma API...</option>
+                    <option value="ibge_para_anotar">API de Localidades (IBGE)</option>
+                    <option value="bc_para_anotar">API SGS (Banco Central)</option>
+                    <option value="camara_para_anotar">API da Câmara dos Deputados</option>
+                    <option value="tse_para_anotar">API de Dados Eleitorais (TSE)</option>
+                    <option value="senado_para_anotar">API do Senado Federal</option>
+                    <option value="cgu_para_anotar">API da Transparência (CGU)</option>
+                </select>
+
+                <!-- Mensagem de Erro -->
+                <p id="error-message" aria-live="polite"></p>
+
+                <!-- Botão de Iniciar -->
+                <button type="submit" id="start-button">Começar Anotação</button>
+            </form>
+        </article>
+
+    </main>
+
+    <!-- 5. JavaScript (Lógica da Página) -->
+    <script>
+        // URL da API no Render (Certifique-se que é a URL do seu Web Service)
+        const API_BASE_URL = 'https://api-mestrado-anotacao.onrender.com';
+
+        // --- Elementos do DOM ---
+        const specialistSelect = document.getElementById('specialist-select');
+        const newSpecialistContainer = document.getElementById('new-specialist-container');
+        const newSpecialistInput = document.getElementById('specialist-new-name');
+        const collectionSelect = document.getElementById('collection-select');
+        const setupForm = document.getElementById('setup-form');
+        const startButton = document.getElementById('start-button');
+        const errorMessage = document.getElementById('error-message');
+
+        // --- Função: Mostrar Erro ---
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            startButton.disabled = false;
+            startButton.setAttribute('aria-busy', 'false');
+        }
+
+        // --- Função: Carregar Especialistas (ao carregar a página) ---
+        async function loadSpecialists() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/listar_especialistas`);
+                if (!response.ok) {
+                    throw new Error('Não foi possível carregar a lista de especialistas.');
+                }
+                const names = await response.json();
+                
+                // Limpa o "Carregando..."
+                specialistSelect.options[0].textContent = "Selecione seu nome...";
+                
+                // Adiciona os nomes na lista
+                names.forEach(name => {
+                    const option = document.createElement('option');
+                    option.value = name;
+                    option.textContent = name;
+                    specialistSelect.insertBefore(option, specialistSelect.options[specialistSelect.options.length - 1]);
+                });
+
+            } catch (error) {
+                console.error('Erro ao carregar especialistas:', error);
+                specialistSelect.options[0].textContent = "Erro ao carregar especialistas";
+                showError(error.message);
+            }
+        }
+
+        // --- Evento: Mudar o <select> de especialista ---
+        specialistSelect.addEventListener('change', () => {
+            if (specialistSelect.value === '__novo__') {
+                newSpecialistContainer.style.display = 'block';
+                newSpecialistInput.required = true;
+            } else {
+                newSpecialistContainer.style.display = 'none';
+                newSpecialistInput.required = false;
+                newSpecialistInput.value = ''; // Limpa o campo
+            }
+        });
+
+        // --- Evento: Enviar o Formulário ---
+        setupForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Impede o envio tradicional
+            
+            // Mostrar estado de carregamento
+            startButton.disabled = true;
+            startButton.setAttribute('aria-busy', 'true');
+            errorMessage.style.display = 'none';
+
+            let specialistName = '';
+            
+            // 1. Determinar o nome do especialista
+            if (specialistSelect.value === '__novo__') {
+                specialistName = newSpecialistInput.value.trim();
+                if (specialistName === '') {
+                    showError('Por favor, digite seu nome.');
+                    return;
+                }
+            } else {
+                specialistName = specialistSelect.value;
+                if (specialistName === '') {
+                    showError('Por favor, selecione seu nome.');
+                    return;
+                }
+            }
+
+            // 2. Determinar a coleção
+            const collectionName = collectionSelect.value;
+            if (collectionName === '') {
+                showError('Por favor, selecione uma API para anotar.');
+                return;
+            }
+
+            // 3. Obter o ID Fixo do Backend
+            try {
+                const response = await fetch(`${API_BASE_URL}/obter_id_fixo`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ "nome_digitado": specialistName })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || `Erro ${response.status}`);
+                }
+                
+                const specialistId = data.id_fixo;
+
+                // 4. Salvar tudo no sessionStorage (para a próxima página)
+                sessionStorage.setItem('specialist_id', specialistId);
+                sessionStorage.setItem('specialist_name', specialistName);
+                sessionStorage.setItem('collection_name', collectionName);
+
+                // 5. Redirecionar para a página de anotação
+                window.location.href = 'annotate.html';
+
+            } catch (error) {
+                console.error('Erro ao obter/registrar ID:', error);
+                showError(`Erro ao iniciar sessão: ${error.message}`);
+            }
+        });
+
+        // --- Inicialização da Página ---
+        document.addEventListener('DOMContentLoaded', loadSpecialists);
+
+    </script>
+</body>
+</html>
