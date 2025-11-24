@@ -9,10 +9,39 @@
         body { padding-top: 80px; }
         nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
         main { max-width: 960px; }
-        /* Estilo para o campo "Outra" */
-        #outro-container { display: flex; align-items: center; gap: 10px; }
+        
+        /* --- NOVOS ESTILOS DE DESTAQUE --- */
+        
+        /* 1. Cabeçalho do Card (Onde diz "Anotando: xyz") */
+        #card-header {
+            font-size: 1.3rem; /* Fonte base maior */
+            text-align: center; /* Centralizado para foco */
+            background-color: var(--pico-card-sectioning-background-color);
+        }
+
+        /* 2. O Nome do Campo (A parte em negrito) */
+        #card-header strong {
+            font-size: 1.8rem; /* Muito maior */
+            color: var(--pico-primary); /* Cor de destaque (Azul do tema) */
+            text-transform: uppercase; /* Caixa alta para chamar atenção */
+            display: block; /* Quebra linha para ficar em destaque */
+            margin-top: 0.5rem;
+        }
+
+        /* 3. A Descrição Rica (Nível 1) */
+        #item-description {
+            font-size: 1.15rem; /* Leitura mais confortável */
+            border-left: 5px solid var(--pico-primary); /* Barra lateral azul */
+            background-color: #f0f7ff; /* Fundo azul muito claro */
+            padding: 1.5rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            color: var(--pico-color);
+        }
+
+        /* Estilo para o campo "Outra" (Mantido) */
+        #outro-container { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
         #outro-container input[type="text"] { margin-bottom: 0; }
-        /* Mostra que o campo está desabilitado até a opção ser marcada */
         #outro-input { background-color: #f4f5f7; } 
         #radio-outro:checked ~ #outro-container #outro-input { background-color: white; }
     </style>
@@ -39,21 +68,24 @@
 
             <!-- Conteúdo (Contexto + Ação) -->
             <div id="card-body">
-                <!-- Seção de Contexto (será preenchida pelo JS) -->
-                <details open>
-                    <summary>Contexto do Campo</summary>
-                    <ul id="item-context">
-                        <!-- JS vai preencher aqui -->
-                    </ul>
-                </details>
                 
-                <!-- Seção da Descrição (será preenchida pelo JS) -->
+                <!-- Seção da Descrição (Agora com mais destaque e aberta por padrão) -->
                 <details open>
-                    <summary>Descrição (Anotação Nível 1)</summary>
+                    <summary><strong>Descrição (O que é este campo?)</strong></summary>
                     <blockquote id="item-description">
                         <!-- JS vai preencher aqui -->
                     </blockquote>
                 </details>
+
+                <!-- Seção de Contexto (Técnico) -->
+                <details>
+                    <summary>Detalhes Técnicos (Contexto)</summary>
+                    <ul id="item-context">
+                        <!-- JS vai preencher aqui -->
+                    </ul>
+                </details>
+
+                <hr>
 
                 <!-- Seção de Ação (Formulário) -->
                 <form id="annotation-form" style="display: none;">
@@ -68,9 +100,9 @@
 
             <!-- Mensagem de Conclusão (inicialmente oculta) -->
             <footer id="finished-message" style="display: none;">
-                <h5>Parabéns!</h5>
-                <p>Você concluiu todas as anotações para esta API. Muito obrigado!</p>
-                <a href="index.html" role="button" class="contrast">Anotar outra API</a>
+                <h5 style="text-align: center; color: var(--pico-primary);">Parabéns!</h5>
+                <p style="text-align: center;">Você concluiu todas as anotações para esta API. Muito obrigado!</p>
+                <a href="index.html" role="button" class="contrast" style="display: block; margin: 0 auto; width: fit-content;">Anotar outra API</a>
             </footer>
         </article>
     </main>
