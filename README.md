@@ -7,9 +7,9 @@ O repositório está organizado conforme a estrutura abaixo:
 📊 Dataset ShowCase
 Esta pasta contém os principais artefatos de dados e validação do projeto:
 
-GovSemantic - Gold Dataset.json: O conjunto de dados padrão-ouro (Gold Standard) validado por especialistas.
+GovSemantic - Gold Dataset.json: O conjunto de dados padrão-ouro (Gold Standard), com as tag semânticas, validado por especialistas.
 
-APIs.zip: Coleção de especificações OpenAPI 3.0 integradas com a extensão x-semantic-tag.
+APIs.zip: Coleção de especificações OpenAPI 3.0.
 
 code_alpha.py: Script Python para o cálculo da concordância inter-anotadores (Alpha de Krippendorff).
 
