@@ -1,0 +1,2114 @@
+{
+    "IBGE": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Golden Dataset - API IBGE",
+            "version": "1.0.0",
+            "description": "Mapeamento semântico adjudicado por especialistas."
+        },
+        "components": {
+            "schemas": {
+                "Fields": {
+                    "type": "object",
+                    "properties": {
+                        "id_ibge_regioes_get_all_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação da Grande Região (Norte, Nordeste, etc.), conforme o padrão oficial do IBGE.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "sigla_ibge_regioes_get_all_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla de duas letras da Grande Região. Exemplo: 'SE' para Sudeste.",
+                            "example": "NE",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "nome_ibge_regioes_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo e oficial da Grande Região.",
+                            "example": "Nordeste",
+                            "x-semantic-tag": "Teste_Ignorar"
+                        },
+                        "id_ibge_regioes_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O identificador numérico da Grande Região usado para buscar uma região específica.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_ibge_regioes_get_by_id_resp_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação da Grande Região retornada.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "sigla_ibge_regioes_get_by_id_resp_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla da Grande Região retornada.",
+                            "example": "N",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "nome_ibge_regioes_get_by_id_resp_nome": {
+                            "original_name": "nome",
+                            "description": "O nome da Grande Região retornada.",
+                            "example": "Norte",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "id_ibge_estados_get_all_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação da Unidade da Federação (UF), composto por 2 dígitos, conforme o padrão oficial do IBGE.",
+                            "example": 35,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "sigla_ibge_estados_get_all_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla de duas letras da Unidade da Federação, utilizada como identificador textual. Exemplo: 'SP' para São Paulo.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "nome_ibge_estados_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo e oficial da Unidade da Federação (UF).",
+                            "example": "São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "regiao_ibge_estados_get_all_regiao": {
+                            "original_name": "regiao",
+                            "description": "O objeto que representa a Grande Região à qual a Unidade da Federação pertence.",
+                            "example": "{ \"id\": 3, \"sigla\": \"SE\", \"nome\": \"Sudeste\" }",
+                            "x-semantic-tag": "schema:geoWithin"
+                        },
+                        "UF_ibge_estados_get_by_id_param_UF": {
+                            "original_name": "UF",
+                            "description": "O identificador da Unidade da Federação (pode ser a sigla, como 'SP', ou o código ID de 2 dígitos) usado para buscar um estado específico.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_ibge_estados_get_by_id_resp_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação da UF retornada.",
+                            "example": 35,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "sigla_ibge_estados_get_by_id_resp_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla da UF retornada.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "nome_ibge_estados_get_by_id_resp_nome": {
+                            "original_name": "nome",
+                            "description": "O nome da UF retornada.",
+                            "example": "São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "regiao_ibge_estados_get_by_id_resp_regiao": {
+                            "original_name": "regiao",
+                            "description": "O objeto que representa a Grande Região da UF retornada.",
+                            "example": "{ \"id\": 3, \"sigla\": \"SE\", \"nome\": \"Sudeste\" }",
+                            "x-semantic-tag": "schema:geoWithin"
+                        },
+                        "id_ibge_municipios_get_all_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação completo do Município, composto por 7 dígitos, conforme o padrão oficial do IBGE.",
+                            "example": 3550308,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_ibge_municipios_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo e oficial do Município.",
+                            "example": "São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "microrregiao_ibge_municipios_get_all_microrregiao": {
+                            "original_name": "microrregiao",
+                            "description": "O objeto que representa a Microrregião à qual o Município pertence.",
+                            "example": "{ \"id\": 35060, \"nome\": \"São Paulo\" ... }",
+                            "x-semantic-tag": "schema:geoWithin"
+                        },
+                        "id_ibge_municipios_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação completo do Município (7 dígitos) usado para buscar um município específico.",
+                            "example": 3550308,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_ibge_municipios_get_by_id_resp_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação do Município retornado.",
+                            "example": 3550308,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_ibge_municipios_get_by_id_resp_nome": {
+                            "original_name": "nome",
+                            "description": "O nome do Município retornado.",
+                            "example": "São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "microrregiao_ibge_municipios_get_by_id_resp_microrregiao": {
+                            "original_name": "microrregiao",
+                            "description": "O objeto que representa a Microrregião do Município retornado.",
+                            "example": "{ \"id\": 35060, \"nome\": \"São Paulo\" ... }",
+                            "x-semantic-tag": "schema:geoWithin"
+                        },
+                        "id_ibge_mesorregioes_get_all_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação da Mesorregião, conforme o padrão oficial do IBGE.",
+                            "example": 3515,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_ibge_mesorregioes_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo e oficial da Mesorregião.",
+                            "example": "Metropolitana de São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "UF_ibge_mesorregioes_get_all_UF": {
+                            "original_name": "UF",
+                            "description": "O objeto que representa a Unidade da Federação à qual a Mesorregião pertence.",
+                            "example": "{ \"id\": 35, \"sigla\": \"SP\", \"nome\": \"São Paulo\" ... }",
+                            "x-semantic-tag": "schema:geoWithin"
+                        },
+                        "id_ibge_mesorregioes_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação da Mesorregião usado para buscar uma mesorregião específica.",
+                            "example": 3515,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_ibge_microrregioes_get_all_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação da Microrregião, conforme o padrão oficial do IBGE.",
+                            "example": 35060,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_ibge_microrregioes_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo e oficial da Microrregião.",
+                            "example": "São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "mesorregiao_ibge_microrregioes_get_all_mesorregiao": {
+                            "original_name": "mesorregiao",
+                            "description": "O objeto que representa a Mesorregião à qual a Microrregião pertence.",
+                            "example": "{ \"id\": 3515, \"nome\": \"Metropolitana de São Paulo\" ... }",
+                            "x-semantic-tag": "schema:geoWithin"
+                        },
+                        "id_ibge_microrregioes_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação da Microrregião usado para buscar uma microrregião específica.",
+                            "example": 35060,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_ibge_distritos_get_all_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação do Distrito, conforme o padrão oficial do IBGE.",
+                            "example": 355030805,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_ibge_distritos_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo e oficial do Distrito.",
+                            "example": "São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "municipio_ibge_distritos_get_all_municipio": {
+                            "original_name": "municipio",
+                            "description": "O objeto que representa o Município ao qual o Distrito pertence.",
+                            "example": "{ \"id\": 3550308, \"nome\": \"São Paulo\" ... }",
+                            "x-semantic-tag": "schema:geoWithin"
+                        },
+                        "id_ibge_distritos_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação do Distrito usado para buscar um distrito específico.",
+                            "example": 355030805,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_ibge_subdistritos_get_all_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação do Subdistrito, conforme o padrão oficial do IBGE.",
+                            "example": 355030805001,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_ibge_subdistritos_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo e oficial do Subdistrito.",
+                            "example": "Vila Prudente",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "distrito_ibge_subdistritos_get_all_distrito": {
+                            "original_name": "distrito",
+                            "description": "O objeto que representa o Distrito ao qual o Subdistrito pertence.",
+                            "example": "{ \"id\": 355030805, \"nome\": \"São Paulo\" ... }",
+                            "x-semantic-tag": "schema:geoWithin"
+                        },
+                        "id_ibge_subdistritos_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação do Subdistrito usado para buscar um subdistrito específico.",
+                            "example": 355030805001,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_ibge_regioes_get_estados_param_id": {
+                            "original_name": "id",
+                            "description": "O identificador da Grande Região usado para filtrar as UFs.",
+                            "example": 3,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "UF_ibge_estados_get_municipios_param_UF": {
+                            "original_name": "UF",
+                            "description": "O identificador da Unidade da Federação (sigla ou ID) usado para filtrar os municípios.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "UF_ibge_estados_get_mesorregioes_param_UF": {
+                            "original_name": "UF",
+                            "description": "O identificador da Unidade da Federação (sigla ou ID) usado para filtrar as mesorregiões.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "UF_ibge_estados_get_microrregioes_param_UF": {
+                            "original_name": "UF",
+                            "description": "O identificador da Unidade da Federação (sigla ou ID) usado para filtrar as microrregiões.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "UF_ibge_estados_get_distritos_param_UF": {
+                            "original_name": "UF",
+                            "description": "O identificador da Unidade da Federação (sigla ou ID) usado para filtrar os distritos.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "id_ibge_municipios_get_distritos_param_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação completo do Município (7 dígitos) usado para filtrar seus distritos.",
+                            "example": 3550308,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_ibge_distritos_get_subdistritos_param_id": {
+                            "original_name": "id",
+                            "description": "O código de identificação do Distrito usado para filtrar seus subdistritos.",
+                            "example": 355030805,
+                            "x-semantic-tag": "schema:identifier"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "BC": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Golden Dataset - API BC",
+            "version": "1.0.0",
+            "description": "Mapeamento semântico adjudicado por especialistas."
+        },
+        "components": {
+            "schemas": {
+                "Fields": {
+                    "type": "object",
+                    "properties": {
+                        "codigo_bcb_sgs_get_serie_param_codigo": {
+                            "original_name": "codigo",
+                            "description": "O código numérico único que identifica a série temporal desejada no Sistema Gerenciador de Séries Temporais (SGS) do Banco Central. Ex: 433 para o IPCA mensal.",
+                            "example": 433,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "formato_bcb_sgs_get_serie_param_formato": {
+                            "original_name": "formato",
+                            "description": "Parâmetro opcional que define o formato da resposta. Os valores possíveis são 'json' (padrão) ou 'csv'.",
+                            "example": "json",
+                            "x-semantic-tag": "schema:encodingFormat"
+                        },
+                        "dataInicial_bcb_sgs_get_serie_param_dataInicial": {
+                            "original_name": "dataInicial",
+                            "description": "Parâmetro opcional para filtrar os resultados a partir de uma data específica. O formato esperado é DD/MM/AAAA.",
+                            "example": "01/01/2023",
+                            "x-semantic-tag": "schema:startDate"
+                        },
+                        "dataFinal_bcb_sgs_get_serie_param_dataFinal": {
+                            "original_name": "dataFinal",
+                            "description": "Parâmetro opcional para filtrar os resultados até uma data específica. O formato esperado é DD/MM/AAAA.",
+                            "example": "31/12/2023",
+                            "x-semantic-tag": "schema:endDate"
+                        },
+                        "data_bcb_sgs_get_serie_resp_data": {
+                            "original_name": "data",
+                            "description": "A data a que se refere o valor da série temporal, no formato DD/MM/AAAA.",
+                            "example": "01/01/2023",
+                            "x-semantic-tag": "schema:observationDate"
+                        },
+                        "valor_bcb_sgs_get_serie_resp_valor": {
+                            "original_name": "valor",
+                            "description": "O valor numérico da série temporal para a data correspondente. Retornado como string.",
+                            "example": "0.53",
+                            "x-semantic-tag": "schema:value"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "CAMARA": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Golden Dataset - API CAMARA",
+            "version": "1.0.0",
+            "description": "Mapeamento semântico adjudicado por especialistas."
+        },
+        "components": {
+            "schemas": {
+                "Fields": {
+                    "type": "object",
+                    "properties": {
+                        "nome_camara_deputados_get_all_param_nome": {
+                            "original_name": "nome",
+                            "description": "Filtra a lista de deputados por parte do nome parlamentar.",
+                            "example": "Jose",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "siglaPartido_camara_deputados_get_all_param_siglaPartido": {
+                            "original_name": "siglaPartido",
+                            "description": "Filtra a lista de deputados pela sigla do partido. Pode-se informar mais de uma sigla.",
+                            "example": "PL",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "siglaUf_camara_deputados_get_all_param_siglaUf": {
+                            "original_name": "siglaUf",
+                            "description": "Filtra a lista de deputados pela sigla da UF de eleição. Pode-se informar mais de uma sigla.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "idLegislatura_camara_deputados_get_all_param_idLegislatura": {
+                            "original_name": "idLegislatura",
+                            "description": "Filtra a lista de deputados pelo ID da legislatura. Pode-se informar mais de um ID.",
+                            "example": 57,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "id_camara_deputados_get_all_resp_id": {
+                            "original_name": "id",
+                            "description": "O identificador numérico único de um deputado retornado na lista.",
+                            "example": 204554,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "uri_camara_deputados_get_all_resp_uri": {
+                            "original_name": "uri",
+                            "description": "A URL (Uniform Resource Identifier) que representa unicamente este deputado dentro da API.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/deputados/204554",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "nome_camara_deputados_get_all_resp_nome": {
+                            "original_name": "nome",
+                            "description": "O nome parlamentar do deputado retornado na lista.",
+                            "example": "DELEGADO PABLO",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "siglaPartido_camara_deputados_get_all_resp_siglaPartido": {
+                            "original_name": "siglaPartido",
+                            "description": "A sigla do partido político do deputado retornado na lista.",
+                            "example": "UNIÃO",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "siglaUf_camara_deputados_get_all_resp_siglaUf": {
+                            "original_name": "siglaUf",
+                            "description": "A sigla da UF de eleição do deputado retornado na lista.",
+                            "example": "AM",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "idLegislatura_camara_deputados_get_all_resp_idLegislatura": {
+                            "original_name": "idLegislatura",
+                            "description": "O número da legislatura de exercício do deputado retornado na lista.",
+                            "example": 57,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "urlFoto_camara_deputados_get_all_resp_urlFoto": {
+                            "original_name": "urlFoto",
+                            "description": "A URL para a foto oficial do deputado retornado na lista.",
+                            "example": "https://www.camara.leg.br/internet/deputado/bandep/204554.jpg",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "email_camara_deputados_get_all_resp_email": {
+                            "original_name": "email",
+                            "description": "O endereço de e-mail institucional do deputado retornado na lista.",
+                            "example": "dep.delegadopablo@camara.leg.br",
+                            "x-semantic-tag": "schema:ContactPoint"
+                        },
+                        "id_camara_deputados_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O identificador numérico único de um deputado usado para buscar seus detalhes completos.",
+                            "example": 204554,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_camara_deputados_get_by_id_resp_id": {
+                            "original_name": "id",
+                            "description": "O ID do deputado retornado nos detalhes.",
+                            "example": 204554,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nomeCivil_camara_deputados_get_by_id_resp_nomeCivil": {
+                            "original_name": "nomeCivil",
+                            "description": "O nome civil completo do deputado.",
+                            "example": "PABLO GABRIEL FAVACHO LOPES",
+                            "x-semantic-tag": "schema:legalName"
+                        },
+                        "ultimoStatus_camara_deputados_get_by_id_resp_ultimoStatus": {
+                            "original_name": "ultimoStatus",
+                            "description": "Objeto contendo os dados mais recentes sobre a situação do deputado (nome eleitoral, partido, UF, etc.).",
+                            "example": "{ \"id\": 204554, \"nome\": \"DELEGADO PABLO\", ... }",
+                            "x-semantic-tag": "schema:GovernmentRepresentative"
+                        },
+                        "nomeEleitoral_camara_deputados_get_by_id_resp_ultimoStatus_nomeEleitoral": {
+                            "original_name": "nomeEleitoral",
+                            "description": "O nome utilizado pelo deputado na urna eletrônica na última eleição.",
+                            "example": "DELEGADO PABLO",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "siglaPartido_camara_deputados_get_by_id_resp_ultimoStatus_siglaPartido": {
+                            "original_name": "siglaPartido",
+                            "description": "A sigla do partido atual do deputado.",
+                            "example": "UNIÃO",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "siglaUf_camara_deputados_get_by_id_resp_ultimoStatus_siglaUf": {
+                            "original_name": "siglaUf",
+                            "description": "A sigla da UF atual de representação do deputado.",
+                            "example": "AM",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "idLegislatura_camara_deputados_get_by_id_resp_ultimoStatus_idLegislatura": {
+                            "original_name": "idLegislatura",
+                            "description": "O ID da legislatura atual de exercício do deputado.",
+                            "example": 57,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "urlFoto_camara_deputados_get_by_id_resp_ultimoStatus_urlFoto": {
+                            "original_name": "urlFoto",
+                            "description": "A URL da foto oficial atual do deputado.",
+                            "example": "https://www.camara.leg.br/internet/deputado/bandep/204554.jpg",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "email_camara_deputados_get_by_id_resp_ultimoStatus_email": {
+                            "original_name": "email",
+                            "description": "O e-mail institucional atual do deputado.",
+                            "example": "dep.delegadopablo@camara.leg.br",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "data_camara_deputados_get_by_id_resp_ultimoStatus_data": {
+                            "original_name": "data",
+                            "description": "A data e hora em que a situação do deputado foi registrada ou atualizada.",
+                            "example": "2023-02-01T09:00:00",
+                            "x-semantic-tag": "schema:dateModified"
+                        },
+                        "condicaoEleitoral_camara_deputados_get_by_id_resp_ultimoStatus_condicaoEleitoral": {
+                            "original_name": "condicaoEleitoral",
+                            "description": "A condição do deputado em relação à eleição (ex: Titular, Suplente).",
+                            "example": "Titular",
+                            "x-semantic-tag": "schema:status"
+                        },
+                        "gabinete_camara_deputados_get_by_id_resp_ultimoStatus_gabinete": {
+                            "original_name": "gabinete",
+                            "description": "Objeto contendo informações sobre o gabinete físico do deputado na Câmara.",
+                            "example": "{ \"nome\": \"560\", \"predio\": \"Anexo IV\", ... }",
+                            "x-semantic-tag": "workLocation"
+                        },
+                        "andar_camara_deputados_get_by_id_resp_ultimoStatus_gabinete_andar": {
+                            "original_name": "andar",
+                            "description": "O número do andar onde se localiza o gabinete do deputado.",
+                            "example": "5",
+                            "x-semantic-tag": "schema:floorLevel"
+                        },
+                        "telefone_camara_deputados_get_by_id_resp_ultimoStatus_gabinete_telefone": {
+                            "original_name": "telefone",
+                            "description": "O número de telefone do gabinete do deputado.",
+                            "example": "3215-5560",
+                            "x-semantic-tag": "schema:telephone"
+                        },
+                        "cpf_camara_deputados_get_by_id_resp_cpf": {
+                            "original_name": "cpf",
+                            "description": "O Cadastro de Pessoa Física (CPF) do deputado (geralmente mascarado ou omitido).",
+                            "example": "***.***.***-**",
+                            "x-semantic-tag": "schema:taxID"
+                        },
+                        "sexo_camara_deputados_get_by_id_resp_sexo": {
+                            "original_name": "sexo",
+                            "description": "O sexo do deputado ('M' para Masculino, 'F' para Feminino).",
+                            "example": "M",
+                            "x-semantic-tag": "schema:gender"
+                        },
+                        "dataNascimento_camara_deputados_get_by_id_resp_dataNascimento": {
+                            "original_name": "dataNascimento",
+                            "description": "A data de nascimento do deputado, no formato AAAA-MM-DD.",
+                            "example": "1981-01-26",
+                            "x-semantic-tag": "schema:birthDate"
+                        },
+                        "dataFalecimento_camara_deputados_get_by_id_resp_dataFalecimento": {
+                            "original_name": "dataFalecimento",
+                            "description": "A data de falecimento do deputado, se aplicável, no formato AAAA-MM-DD.",
+                            "example": null,
+                            "x-semantic-tag": "schema:deathDate"
+                        },
+                        "ufNascimento_camara_deputados_get_by_id_resp_ufNascimento": {
+                            "original_name": "ufNascimento",
+                            "description": "A sigla da Unidade da Federação onde o deputado nasceu.",
+                            "example": "AM",
+                            "x-semantic-tag": "schema:birthPlace"
+                        },
+                        "municipioNascimento_camara_deputados_get_by_id_resp_municipioNascimento": {
+                            "original_name": "municipioNascimento",
+                            "description": "O nome do município onde o deputado nasceu.",
+                            "example": "Manaus",
+                            "x-semantic-tag": "schema:birthPlace"
+                        },
+                        "escolaridade_camara_deputados_get_by_id_resp_escolaridade": {
+                            "original_name": "escolaridade",
+                            "description": "O nível de escolaridade declarado pelo deputado.",
+                            "example": "Superior",
+                            "x-semantic-tag": "schema:educationalLevel"
+                        },
+                        "id_camara_despesas_get_param_id": {
+                            "original_name": "id",
+                            "description": "O ID do deputado cujas despesas da Cota Parlamentar serão consultadas.",
+                            "example": 204554,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "ano_camara_despesas_get_param_ano": {
+                            "original_name": "ano",
+                            "description": "Filtra as despesas pelo ano. Pode-se informar mais de um ano.",
+                            "example": 2023,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "mes_camara_despesas_get_param_mes": {
+                            "original_name": "mes",
+                            "description": "Filtra as despesas pelo mês (1 a 12). Pode-se informar mais de um mês.",
+                            "example": 10,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "ano_camara_despesas_get_resp_ano": {
+                            "original_name": "ano",
+                            "description": "O ano em que a despesa ocorreu.",
+                            "example": 2023,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "mes_camara_despesas_get_resp_mes": {
+                            "original_name": "mes",
+                            "description": "O mês (1 a 12) em que a despesa ocorreu.",
+                            "example": 10,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "tipoDespesa_camara_despesas_get_resp_tipoDespesa": {
+                            "original_name": "tipoDespesa",
+                            "description": "A categoria da despesa realizada (ex: passagens aéreas, combustível, aluguel).",
+                            "example": "MANUTENÇÃO DE ESCRITÓRIO DE APOIO À ATIVIDADE PARLAMENTAR",
+                            "x-semantic-tag": "schema:category"
+                        },
+                        "codDocumento_camara_despesas_get_resp_codDocumento": {
+                            "original_name": "codDocumento",
+                            "description": "O código interno da Câmara que identifica o documento que comprova a despesa.",
+                            "example": 7277883,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "tipoDocumento_camara_despesas_get_resp_tipoDocumento": {
+                            "original_name": "tipoDocumento",
+                            "description": "O tipo do documento fiscal apresentado (Nota Fiscal, Recibo, etc.).",
+                            "example": "Nota Fiscal",
+                            "x-semantic-tag": "schema:document"
+                        },
+                        "codTipoDocumento_camara_despesas_get_resp_codTipoDocumento": {
+                            "original_name": "codTipoDocumento",
+                            "description": "O código numérico que representa o tipo do documento fiscal.",
+                            "example": null,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "dataDocumento_camara_despesas_get_resp_dataDocumento": {
+                            "original_name": "dataDocumento",
+                            "description": "A data de emissão do documento fiscal, no formato AAAA-MM-DD.",
+                            "example": "2023-10-18",
+                            "x-semantic-tag": "schema:dateIssued"
+                        },
+                        "numDocumento_camara_despesas_get_resp_numDocumento": {
+                            "original_name": "numDocumento",
+                            "description": "O número do documento fiscal (ex: número da nota fiscal).",
+                            "example": "135121",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "valorDocumento_camara_despesas_get_resp_valorDocumento": {
+                            "original_name": "valorDocumento",
+                            "description": "O valor total registrado no documento fiscal.",
+                            "example": 178.23,
+                            "x-semantic-tag": "schema:totalPaymentDue"
+                        },
+                        "urlDocumento_camara_despesas_get_resp_urlDocumento": {
+                            "original_name": "urlDocumento",
+                            "description": "A URL para acessar a imagem digitalizada do documento fiscal, se disponível.",
+                            "example": "http://www.camara.leg.br/cota-parlamentar/documentos/publ/3336/2023/7277883.pdf",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "nomeFornecedor_camara_despesas_get_resp_nomeFornecedor": {
+                            "original_name": "nomeFornecedor",
+                            "description": "O nome da empresa ou pessoa que emitiu o documento fiscal.",
+                            "example": "AUTO POSTO SAGA LTDA",
+                            "x-semantic-tag": "schema:seller"
+                        },
+                        "cnpjCpfFornecedor_camara_despesas_get_resp_cnpjCpfFornecedor": {
+                            "original_name": "cnpjCpfFornecedor",
+                            "description": "O CNPJ ou CPF do fornecedor que emitiu o documento fiscal.",
+                            "example": "00000000000191",
+                            "x-semantic-tag": "schema:taxID"
+                        },
+                        "valorLiquido_camara_despesas_get_resp_valorLiquido": {
+                            "original_name": "valorLiquido",
+                            "description": "O valor líquido da despesa, após possíveis descontos ou glosas.",
+                            "example": 178.23,
+                            "x-semantic-tag": "schema:price"
+                        },
+                        "valorGlosa_camara_despesas_get_resp_valorGlosa": {
+                            "original_name": "valorGlosa",
+                            "description": "O valor da despesa que foi glosado (não reembolsado) pela Câmara.",
+                            "example": null,
+                            "x-semantic-tag": "schema:price"
+                        },
+                        "numRessarcimento_camara_despesas_get_resp_numRessarcimento": {
+                            "original_name": "numRessarcimento",
+                            "description": "O número do processo de ressarcimento na Câmara (pode ser vazio).",
+                            "example": null,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "codLote_camara_despesas_get_resp_codLote": {
+                            "original_name": "codLote",
+                            "description": "O código do lote ao qual o documento de ressarcimento pertence.",
+                            "example": 1968843,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "parcela_camara_despesas_get_resp_parcela": {
+                            "original_name": "parcela",
+                            "description": "Indica o número da parcela, se a despesa for referente a um pagamento parcelado.",
+                            "example": null,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "siglaTipo_camara_proposicoes_get_param_siglaTipo": {
+                            "original_name": "siglaTipo",
+                            "description": "Filtra as proposições pela sigla do tipo (ex: PL para Projeto de Lei, PEC para Proposta de Emenda à Constituição).",
+                            "example": "PL",
+                            "x-semantic-tag": "Legislation"
+                        },
+                        "numero_camara_proposicoes_get_param_numero": {
+                            "original_name": "numero",
+                            "description": "Filtra as proposições pelo número.",
+                            "example": 2630,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "ano_camara_proposicoes_get_param_ano": {
+                            "original_name": "ano",
+                            "description": "Filtra as proposições pelo ano de apresentação.",
+                            "example": 2023,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "idAutor_camara_proposicoes_get_param_idAutor": {
+                            "original_name": "idAutor",
+                            "description": "Filtra as proposições pelo ID de um deputado autor.",
+                            "example": 204554,
+                            "x-semantic-tag": "schema:author"
+                        },
+                        "id_camara_proposicoes_get_resp_id": {
+                            "original_name": "id",
+                            "description": "O identificador numérico único da proposição.",
+                            "example": 2404176,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "uri_camara_proposicoes_get_resp_uri": {
+                            "original_name": "uri",
+                            "description": "A URL que representa unicamente esta proposição dentro da API.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2404176",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "siglaTipo_camara_proposicoes_get_resp_siglaTipo": {
+                            "original_name": "siglaTipo",
+                            "description": "A sigla do tipo da proposição (PL, PEC, etc.).",
+                            "example": "PL",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "idTipo_camara_proposicoes_get_resp_idTipo": {
+                            "original_name": "idTipo",
+                            "description": "O código numérico que identifica o tipo da proposição.",
+                            "example": 139,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "numero_camara_proposicoes_get_resp_numero": {
+                            "original_name": "numero",
+                            "description": "O número sequencial da proposição dentro do seu tipo e ano.",
+                            "example": 2630,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "ano_camara_proposicoes_get_resp_ano": {
+                            "original_name": "ano",
+                            "description": "O ano em que a proposição foi apresentada.",
+                            "example": 2023,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "ementa_camara_proposicoes_get_resp_ementa": {
+                            "original_name": "ementa",
+                            "description": "O texto resumo que descreve o objetivo da proposição.",
+                            "example": "Institui o marco legal para a indústria de jogos eletrônicos e para os jogos de fantasia no Brasil.",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "id_camara_proposicoes_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O ID da proposição para buscar seus detalhes.",
+                            "example": 2404176,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "dataInicio_camara_votacoes_get_param_dataInicio": {
+                            "original_name": "dataInicio",
+                            "description": "Filtra votações ocorridas a partir desta data (AAAA-MM-DD).",
+                            "example": "2023-10-01",
+                            "x-semantic-tag": "schema:startDate"
+                        },
+                        "dataFim_camara_votacoes_get_param_dataFim": {
+                            "original_name": "dataFim",
+                            "description": "Filtra votações ocorridas até esta data (AAAA-MM-DD).",
+                            "example": "2023-10-31",
+                            "x-semantic-tag": "schema:endDate"
+                        },
+                        "idProposicao_camara_votacoes_get_param_idProposicao": {
+                            "original_name": "idProposicao",
+                            "description": "Filtra votações relacionadas a uma proposição específica.",
+                            "example": 2404176,
+                            "x-semantic-tag": "schema:about"
+                        },
+                        "id_camara_votacoes_get_resp_id": {
+                            "original_name": "id",
+                            "description": "O identificador único da votação.",
+                            "example": "57-PL26302023-2023-10-25",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "uri_camara_votacoes_get_resp_uri": {
+                            "original_name": "uri",
+                            "description": "A URL que representa unicamente esta votação dentro da API.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/votacoes/57-PL26302023-2023-10-25",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "data_camara_votacoes_get_resp_data": {
+                            "original_name": "data",
+                            "description": "A data em que a votação ocorreu.",
+                            "example": "2023-10-25",
+                            "x-semantic-tag": "schema:startDate"
+                        },
+                        "dataHoraRegistro_camara_votacoes_get_resp_dataHoraRegistro": {
+                            "original_name": "dataHoraRegistro",
+                            "description": "A data e hora exatas em que a votação foi registrada.",
+                            "example": "2023-10-25T14:30:00",
+                            "x-semantic-tag": "schema:dateCreated"
+                        },
+                        "siglaOrgao_camara_votacoes_get_resp_siglaOrgao": {
+                            "original_name": "siglaOrgao",
+                            "description": "A sigla do órgão (Plenário, Comissão) onde a votação ocorreu.",
+                            "example": "PLEN",
+                            "x-semantic-tag": "schema:organization"
+                        },
+                        "uriOrgao_camara_votacoes_get_resp_uriOrgao": {
+                            "original_name": "uriOrgao",
+                            "description": "A URL que representa o órgão onde ocorreu a votação.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "uriProposicaoPrincipal_camara_votacoes_get_resp_uriProposicaoPrincipal": {
+                            "original_name": "uriProposicaoPrincipal",
+                            "description": "A URL da proposição principal que foi objeto da votação.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2404176",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "descricao_camara_votacoes_get_resp_descricao": {
+                            "original_name": "descricao",
+                            "description": "Descrição do que estava sendo votado (ex: o mérito, uma emenda, um requerimento).",
+                            "example": "Votação do Requerimento de Urgência (Art. 155 do RICD)",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "aprovacao_camara_votacoes_get_resp_aprovacao": {
+                            "original_name": "aprovacao",
+                            "description": "Indicador numérico do resultado da votação (1 para Aprovado, 0 para Rejeitado, etc.). Pode ser nulo se não houver resultado conclusivo.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:result"
+                        },
+                        "id_camara_votacoes_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O ID da votação para buscar seus detalhes.",
+                            "example": "57-PL26302023-2023-10-25",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_camara_partidos_get_all_id": {
+                            "original_name": "id",
+                            "description": "O identificador numérico único de um partido político.",
+                            "example": 37905,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "sigla_camara_partidos_get_all_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla oficial do partido político.",
+                            "example": "UNIÃO",
+                            "x-semantic-tag": "govbr:partidoSigla"
+                        },
+                        "nome_camara_partidos_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo do partido político.",
+                            "example": "União Brasil",
+                            "x-semantic-tag": "schema:legalName"
+                        },
+                        "uri_camara_partidos_get_all_uri": {
+                            "original_name": "uri",
+                            "description": "A URL que representa unicamente este partido dentro da API.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/partidos/37905",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "id_camara_partidos_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O ID do partido para buscar seus detalhes.",
+                            "example": 37905,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_camara_orgaos_get_all_id": {
+                            "original_name": "id",
+                            "description": "O identificador numérico único de um órgão da Câmara (Comissão, Liderança, etc.).",
+                            "example": 2005,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "uri_camara_orgaos_get_all_uri": {
+                            "original_name": "uri",
+                            "description": "A URL que representa unicamente este órgão dentro da API.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/orgaos/2005",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "sigla_camara_orgaos_get_all_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla do órgão.",
+                            "example": "CCJC",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "nome_camara_orgaos_get_all_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo do órgão.",
+                            "example": "Comissão de Constituição e Justiça e de Cidadania",
+                            "x-semantic-tag": "schema:legalName"
+                        },
+                        "apelido_camara_orgaos_get_all_apelido": {
+                            "original_name": "apelido",
+                            "description": "Um nome curto ou apelido para o órgão.",
+                            "example": "Constituição e Justiça e de Cidadania",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "codTipoOrgao_camara_orgaos_get_all_codTipoOrgao": {
+                            "original_name": "codTipoOrgao",
+                            "description": "O código numérico que identifica o tipo do órgão (ex: Comissão Permanente, Comissão Temporária).",
+                            "example": 2,
+                            "x-semantic-tag": "category"
+                        },
+                        "tipoOrgao_camara_orgaos_get_all_tipoOrgao": {
+                            "original_name": "tipoOrgao",
+                            "description": "A descrição textual do tipo do órgão.",
+                            "example": "Comissão Permanente",
+                            "x-semantic-tag": "category"
+                        },
+                        "casa_camara_orgaos_get_all_casa": {
+                            "original_name": "casa",
+                            "description": "A casa legislativa à qual o órgão pertence.",
+                            "example": "Câmara dos Deputados",
+                            "x-semantic-tag": "schema:isPartOf"
+                        },
+                        "id_camara_orgaos_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O ID do órgão para buscar seus detalhes.",
+                            "example": 2005,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_camara_orgaos_membros_get_param_id": {
+                            "original_name": "id",
+                            "description": "O ID do órgão para listar seus membros.",
+                            "example": 2005,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_camara_orgaos_membros_get_resp_id": {
+                            "original_name": "id",
+                            "description": "O ID do deputado membro do órgão.",
+                            "example": 204554,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "uri_camara_orgaos_membros_get_resp_uri": {
+                            "original_name": "uri",
+                            "description": "A URL que representa o deputado membro.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/deputados/204554",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "nome_camara_orgaos_membros_get_resp_nome": {
+                            "original_name": "nome",
+                            "description": "O nome parlamentar do deputado membro.",
+                            "example": "DELEGADO PABLO",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "siglaPartido_camara_orgaos_membros_get_resp_siglaPartido": {
+                            "original_name": "siglaPartido",
+                            "description": "A sigla do partido do deputado membro.",
+                            "example": "UNIÃO",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "uriPartido_camara_orgaos_membros_get_resp_uriPartido": {
+                            "original_name": "uriPartido",
+                            "description": "A URL que representa o partido do deputado membro.",
+                            "example": "https://dadosabertos.camara.leg.br/api/v2/partidos/37905",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "siglaUf_camara_orgaos_membros_get_resp_siglaUf": {
+                            "original_name": "siglaUf",
+                            "description": "A sigla da UF do deputado membro.",
+                            "example": "AM",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "idLegislatura_camara_orgaos_membros_get_resp_idLegislatura": {
+                            "original_name": "idLegislatura",
+                            "description": "A legislatura em que o deputado é (ou foi) membro deste órgão.",
+                            "example": 57,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "urlFoto_camara_orgaos_membros_get_resp_urlFoto": {
+                            "original_name": "urlFoto",
+                            "description": "A URL da foto do deputado membro.",
+                            "example": "https://www.camara.leg.br/internet/deputado/bandep/204554.jpg",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "codTitulo_camara_orgaos_membros_get_resp_codTitulo": {
+                            "original_name": "codTitulo",
+                            "description": "Código que representa o título ou cargo do deputado dentro do órgão (ex: Presidente, Membro Titular).",
+                            "example": "101",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "descricaoTitulo_camara_orgaos_membros_get_resp_descricaoTitulo": {
+                            "original_name": "descricaoTitulo",
+                            "description": "A descrição textual do título ou cargo do deputado no órgão.",
+                            "example": "Presidente",
+                            "x-semantic-tag": "schema:jobTitle"
+                        },
+                        "dataInicio_camara_orgaos_membros_get_resp_dataInicio": {
+                            "original_name": "dataInicio",
+                            "description": "A data em que o deputado iniciou sua participação no órgão com este título.",
+                            "example": "2023-03-15",
+                            "x-semantic-tag": "schema:startDate"
+                        },
+                        "dataFim_camara_orgaos_membros_get_resp_dataFim": {
+                            "original_name": "dataFim",
+                            "description": "A data em que o deputado encerrou sua participação no órgão com este título (nulo se ainda for membro).",
+                            "example": null,
+                            "x-semantic-tag": "schema:endDate"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "TSE": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Golden Dataset - API TSE",
+            "version": "1.0.0",
+            "description": "Mapeamento semântico adjudicado por especialistas."
+        },
+        "components": {
+            "schemas": {
+                "Fields": {
+                    "type": "object",
+                    "properties": {
+                        "ano_tse_eleicoes_get_all_param_ano": {
+                            "original_name": "ano",
+                            "description": "Filtra a lista de eleições pelo ano em que ocorreram.",
+                            "example": 2022,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "id_tse_eleicoes_get_all_resp_id": {
+                            "original_name": "id",
+                            "description": "O identificador numérico único da eleição no sistema do TSE.",
+                            "example": 544,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "ano_tse_eleicoes_get_all_resp_ano": {
+                            "original_name": "ano",
+                            "description": "O ano em que a eleição ocorreu.",
+                            "example": 2022,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "nome_tse_eleicoes_get_all_resp_nome": {
+                            "original_name": "nome",
+                            "description": "O nome ou tipo da eleição (ex: Eleições Gerais, Eleições Municipais).",
+                            "example": "Eleições Gerais Ordinárias",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "tipo_tse_eleicoes_get_all_resp_tipo": {
+                            "original_name": "tipo",
+                            "description": "O tipo específico da eleição (Ordinária, Suplementar, etc.).",
+                            "example": "Ordinária",
+                            "x-semantic-tag": "schema:category"
+                        },
+                        "id_tse_cargos_get_param_idEleicao": {
+                            "original_name": "id",
+                            "description": "O ID da eleição para listar os cargos disputados.",
+                            "example": 544,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "id_tse_cargos_get_resp_id": {
+                            "original_name": "id",
+                            "description": "O código numérico que identifica o cargo (ex: Presidente, Governador, Deputado Federal).",
+                            "example": 1,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_tse_cargos_get_resp_nome": {
+                            "original_name": "nome",
+                            "description": "O nome oficial do cargo em disputa.",
+                            "example": "Presidente",
+                            "x-semantic-tag": "schema:jobTitle"
+                        },
+                        "codTse_tse_cargos_get_resp_codTse": {
+                            "original_name": "codTse",
+                            "description": "O código específico utilizado pelo TSE para identificar o cargo.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "idEleicao_tse_candidatos_get_param_idEleicao": {
+                            "original_name": "idEleicao",
+                            "description": "O ID da eleição para listar os candidatos.",
+                            "example": 544,
+                            "x-semantic-tag": "schema:about"
+                        },
+                        "cargo_tse_candidatos_get_param_idCargo": {
+                            "original_name": "cargo",
+                            "description": "Filtra os candidatos pelo ID do cargo disputado.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:jobTitle"
+                        },
+                        "uf_tse_candidatos_get_param_uf": {
+                            "original_name": "uf",
+                            "description": "Filtra os candidatos pela sigla da UF da candidatura (relevante para cargos estaduais/federais).",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "partido_tse_candidatos_get_param_partido": {
+                            "original_name": "partido",
+                            "description": "Filtra os candidatos pelo número do partido.",
+                            "example": 22,
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "id_tse_candidatos_get_resp_id": {
+                            "original_name": "id",
+                            "description": "O identificador único do candidato no sistema do TSE (geralmente o número do título de eleitor ou similar).",
+                            "example": 280001607829,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nomeUrna_tse_candidatos_get_resp_nomeUrna": {
+                            "original_name": "nomeUrna",
+                            "description": "O nome que apareceu para o candidato na urna eletrônica.",
+                            "example": "LULA",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "numero_tse_candidatos_get_resp_numero": {
+                            "original_name": "numero",
+                            "description": "O número com o qual o candidato concorreu na eleição.",
+                            "example": 13,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "idCandidatoSuperior_tse_candidatos_get_resp_idCandidatoSuperior": {
+                            "original_name": "idCandidatoSuperior",
+                            "description": "O ID do candidato titular, caso este seja um vice ou suplente.",
+                            "example": null,
+                            "x-semantic-tag": "schema:relatedTo"
+                        },
+                        "nomeCompleto_tse_candidatos_get_resp_nomeCompleto": {
+                            "original_name": "nomeCompleto",
+                            "description": "O nome civil completo do candidato.",
+                            "example": "LUIZ INÁCIO LULA DA SILVA",
+                            "x-semantic-tag": "schema:legalName"
+                        },
+                        "descricaoSexo_tse_candidatos_get_resp_descricaoSexo": {
+                            "original_name": "descricaoSexo",
+                            "description": "O sexo declarado pelo candidato.",
+                            "example": "Masculino",
+                            "x-semantic-tag": "schema:gender"
+                        },
+                        "dataDeNascimento_tse_candidatos_get_resp_dataDeNascimento": {
+                            "original_name": "dataDeNascimento",
+                            "description": "A data de nascimento do candidato no formato DD/MM/AAAA.",
+                            "example": "27/10/1945",
+                            "x-semantic-tag": "schema:birthDate"
+                        },
+                        "tituloEleitor_tse_candidatos_get_resp_tituloEleitor": {
+                            "original_name": "tituloEleitor",
+                            "description": "O número do título de eleitor do candidato.",
+                            "example": "000000000000",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "idade_tse_candidatos_get_resp_idade": {
+                            "original_name": "idade",
+                            "description": "A idade do candidato na data da eleição.",
+                            "example": 76,
+                            "x-semantic-tag": "schema:age"
+                        },
+                        "descricaoCorRaca_tse_candidatos_get_resp_descricaoCorRaca": {
+                            "original_name": "descricaoCorRaca",
+                            "description": "A cor ou raça autodeclarada pelo candidato.",
+                            "example": "Branca",
+                            "x-semantic-tag": "description"
+                        },
+                        "descricaoEstadoCivil_tse_candidatos_get_resp_descricaoEstadoCivil": {
+                            "original_name": "descricaoEstadoCivil",
+                            "description": "O estado civil declarado pelo candidato.",
+                            "example": "Casado(a)",
+                            "x-semantic-tag": "schema:knows"
+                        },
+                        "descricaoOcupacao_tse_candidatos_get_resp_descricaoOcupacao": {
+                            "original_name": "descricaoOcupacao",
+                            "description": "A ocupação profissional declarada pelo candidato.",
+                            "example": "Aposentado (Exceto Servidor Público)",
+                            "x-semantic-tag": "schema:occupation"
+                        },
+                        "gastoCampanha1T_tse_candidatos_get_resp_gastoCampanha1T": {
+                            "original_name": "gastoCampanha1T",
+                            "description": "O valor total gasto na campanha no primeiro turno, conforme declaração.",
+                            "example": 100000.0,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "gastoCampanha2T_tse_candidatos_get_resp_gastoCampanha2T": {
+                            "original_name": "gastoCampanha2T",
+                            "description": "O valor total gasto na campanha no segundo turno, se aplicável.",
+                            "example": 50000.0,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "sgUfNascimento_tse_candidatos_get_resp_sgUfNascimento": {
+                            "original_name": "sgUfNascimento",
+                            "description": "A sigla da UF onde o candidato nasceu.",
+                            "example": "PE",
+                            "x-semantic-tag": "schema:birthPlace"
+                        },
+                        "nomeMunicipioNascimento_tse_candidatos_get_resp_nomeMunicipioNascimento": {
+                            "original_name": "nomeMunicipioNascimento",
+                            "description": "O nome do município onde o candidato nasceu.",
+                            "example": "GARANHUNS",
+                            "x-semantic-tag": "schema:birthPlace"
+                        },
+                        "localCandidatura_tse_candidatos_get_resp_localCandidatura": {
+                            "original_name": "localCandidatura",
+                            "description": "A abrangência geográfica da candidatura (BR, sigla da UF, nome do Município).",
+                            "example": "BR",
+                            "x-semantic-tag": "schema:areaServed"
+                        },
+                        "ufCandidatura_tse_candidatos_get_resp_ufCandidatura": {
+                            "original_name": "ufCandidatura",
+                            "description": "A sigla da UF da candidatura, se aplicável.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:areaServed"
+                        },
+                        "partido_tse_candidatos_get_resp_partido": {
+                            "original_name": "partido",
+                            "description": "Objeto contendo informações sobre o partido do candidato.",
+                            "example": "{ \"numero\": 13, \"sigla\": \"PT\", ... }",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "numero_tse_candidatos_get_resp_partido_numero": {
+                            "original_name": "numero",
+                            "description": "O número eleitoral do partido.",
+                            "example": 13,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "sigla_tse_candidatos_get_resp_partido_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla oficial do partido.",
+                            "example": "PT",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "nome_tse_candidatos_get_resp_partido_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo do partido.",
+                            "example": "PARTIDO DOS TRABALHADORES",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "coligacao_tse_candidatos_get_resp_coligacao": {
+                            "original_name": "coligacao",
+                            "description": "O nome da coligação pela qual o candidato concorreu, se aplicável.",
+                            "example": "Brasil da Esperança",
+                            "x-semantic-tag": "schema:memberOf"
+                        },
+                        "descricaoSituacao_tse_candidatos_get_resp_descricaoSituacao": {
+                            "original_name": "descricaoSituacao",
+                            "description": "A situação da candidatura (Deferido, Indeferido, Cassado, etc.).",
+                            "example": "Deferido",
+                            "x-semantic-tag": "schema:status"
+                        },
+                        "bens_tse_candidatos_get_resp_bens": {
+                            "original_name": "bens",
+                            "description": "Uma lista de objetos representando os bens declarados pelo candidato.",
+                            "example": "[ { \"descricao\": \"VEICULO AUTOMOTOR TERRESTRE...\", \"valor\": 40000.00 } ]",
+                            "x-semantic-tag": "schema:owns"
+                        },
+                        "descricao (dentro de bens)_tse_candidatos_get_resp_bens_descricao": {
+                            "original_name": "descricao (dentro de bens)",
+                            "description": "A descrição do tipo de bem declarado.",
+                            "example": "VEICULO AUTOMOTOR TERRESTRE: CAMINHAO, AUTOMOVEL, MOTO, ETC.",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "valor (dentro de bens)_tse_candidatos_get_resp_bens_valor": {
+                            "original_name": "valor (dentro de bens)",
+                            "description": "O valor declarado para o bem.",
+                            "example": 40000.0,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "totalDeBens_tse_candidatos_get_resp_totalDeBens": {
+                            "original_name": "totalDeBens",
+                            "description": "O valor total do patrimônio declarado pelo candidato.",
+                            "example": 7423607.45,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "votos_tse_candidatos_get_resp_votos": {
+                            "original_name": "votos",
+                            "description": "O número total de votos recebidos pelo candidato (pode requerer consulta a endpoint específico de resultados).",
+                            "example": 60345999,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "eleito_tse_candidatos_get_resp_eleito": {
+                            "original_name": "eleito",
+                            "description": "Indicador booleano se o candidato foi eleito.",
+                            "example": true,
+                            "x-semantic-tag": "schema:result"
+                        },
+                        "numero_tse_partidos_get_all_resp_numero": {
+                            "original_name": "numero",
+                            "description": "O número eleitoral do partido.",
+                            "example": 13,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "sigla_tse_partidos_get_all_resp_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla oficial do partido.",
+                            "example": "PT",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "nome_tse_partidos_get_all_resp_nome": {
+                            "original_name": "nome",
+                            "description": "O nome completo do partido.",
+                            "example": "PARTIDO DOS TRABALHADORES",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "idEleicao_tse_resultados_get_param_idEleicao": {
+                            "original_name": "idEleicao",
+                            "description": "O ID da eleição para buscar os resultados.",
+                            "example": 544,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "cargo_tse_resultados_get_param_idCargo": {
+                            "original_name": "cargo",
+                            "description": "Filtra os resultados pelo ID do cargo disputado.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:jobTitle"
+                        },
+                        "uf_tse_resultados_get_param_uf": {
+                            "original_name": "uf",
+                            "description": "Filtra os resultados pela sigla da UF.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "municipio_tse_resultados_get_param_municipio": {
+                            "original_name": "municipio",
+                            "description": "Filtra os resultados pelo código do município (TSE ou IBGE).",
+                            "example": 71072,
+                            "x-semantic-tag": "schema:addressLocality"
+                        },
+                        "idCandidato_tse_resultados_get_resp_idCandidato": {
+                            "original_name": "idCandidato",
+                            "description": "O ID do candidato a que se refere esta linha de resultado.",
+                            "example": 280001607829,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nomeUrna_tse_resultados_get_resp_nomeUrna": {
+                            "original_name": "nomeUrna",
+                            "description": "O nome do candidato na urna.",
+                            "example": "LULA",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "numero_tse_resultados_get_resp_numero": {
+                            "original_name": "numero",
+                            "description": "O número do candidato.",
+                            "example": 13,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "partido_tse_resultados_get_resp_partido": {
+                            "original_name": "partido",
+                            "description": "A sigla do partido do candidato.",
+                            "example": "PT",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "votos_tse_resultados_get_resp_votos": {
+                            "original_name": "votos",
+                            "description": "O número de votos nominais recebidos pelo candidato na localidade consultada.",
+                            "example": 60345999,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "percentual_tse_resultados_get_resp_percentual": {
+                            "original_name": "percentual",
+                            "description": "O percentual de votos válidos recebidos pelo candidato na localidade consultada.",
+                            "example": 50.9,
+                            "x-semantic-tag": "schema:percentile"
+                        },
+                        "eleito_tse_resultados_get_resp_eleito": {
+                            "original_name": "eleito",
+                            "description": "Indicador se o candidato foi eleito naquela localidade (pode variar dependendo da abrangência).",
+                            "example": true,
+                            "x-semantic-tag": "schema:result"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "CGU": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Golden Dataset - API CGU",
+            "version": "1.0.0",
+            "description": "Mapeamento semântico adjudicado por especialistas."
+        },
+        "components": {
+            "schemas": {
+                "Fields": {
+                    "type": "object",
+                    "properties": {
+                        "mesAno_cgu_auxiliobrasil_saques_param_mesAno": {
+                            "original_name": "mesAno",
+                            "description": "Filtro obrigatório pelo mês e ano de referência da parcela do benefício, no formato AAAAMM.",
+                            "example": 202301,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "codigoIbge_cgu_auxiliobrasil_saques_param_codigoIbge": {
+                            "original_name": "codigoIbge",
+                            "description": "Filtro obrigatório pelo código IBGE do município (7 dígitos).",
+                            "example": "3550308",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "pagina_cgu_auxiliobrasil_saques_param_pagina": {
+                            "original_name": "pagina",
+                            "description": "Número da página desejada para a consulta paginada. O padrão é 1.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:pagination"
+                        },
+                        "id_cgu_auxiliobrasil_saques_resp_id": {
+                            "original_name": "id",
+                            "description": "Identificador único do registro do benefício.",
+                            "example": 12345678,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "municipio_cgu_auxiliobrasil_saques_resp_municipio": {
+                            "original_name": "municipio",
+                            "description": "Objeto contendo informações sobre o município do beneficiário.",
+                            "example": "{ \"codigoIBGE\": \"3550308\", \"nomeIBGE\": \"São Paulo\", ... }",
+                            "x-semantic-tag": "schema:City"
+                        },
+                        "codigoIBGE_cgu_auxiliobrasil_saques_resp_municipio_codigoIBGE": {
+                            "original_name": "codigoIBGE",
+                            "description": "O código IBGE de 7 dígitos do município.",
+                            "example": "3550308",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nomeIBGE_cgu_auxiliobrasil_saques_resp_municipio_nomeIBGE": {
+                            "original_name": "nomeIBGE",
+                            "description": "O nome oficial do município conforme o IBGE.",
+                            "example": "São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "pais_cgu_auxiliobrasil_saques_resp_municipio_pais": {
+                            "original_name": "pais",
+                            "description": "O nome do país (geralmente 'Brasil').",
+                            "example": "Brasil",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "uf_cgu_auxiliobrasil_saques_resp_municipio_uf": {
+                            "original_name": "uf",
+                            "description": "Objeto contendo informações sobre a UF do município.",
+                            "example": "{ \"sigla\": \"SP\", \"nome\": \"São Paulo\" }",
+                            "x-semantic-tag": "schema:State"
+                        },
+                        "sigla_cgu_auxiliobrasil_saques_resp_municipio_uf_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla da UF.",
+                            "example": "SP",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "nome_cgu_auxiliobrasil_saques_resp_municipio_uf_nome": {
+                            "original_name": "nome",
+                            "description": "O nome da UF.",
+                            "example": "São Paulo",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "beneficiario_cgu_auxiliobrasil_saques_resp_beneficiario": {
+                            "original_name": "beneficiario",
+                            "description": "Objeto contendo informações sobre o beneficiário (geralmente anonimizado).",
+                            "example": "{ \"nis\": \"***\", \"nome\": \"***\" }",
+                            "x-semantic-tag": "schema:recipient"
+                        },
+                        "nis_cgu_auxiliobrasil_saques_resp_beneficiario_nis": {
+                            "original_name": "nis",
+                            "description": "O Número de Identificação Social (NIS) do beneficiário (anonimizado).",
+                            "example": "***",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_cgu_auxiliobrasil_saques_resp_beneficiario_nome": {
+                            "original_name": "nome",
+                            "description": "O nome do beneficiário (anonimizado).",
+                            "example": "***",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "valor_cgu_auxiliobrasil_saques_resp_valor": {
+                            "original_name": "valor",
+                            "description": "O valor da parcela do benefício recebida.",
+                            "example": 600.0,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "dataMesCompetencia_cgu_auxiliobrasil_saques_resp_dataMesCompetencia": {
+                            "original_name": "dataMesCompetencia",
+                            "description": "O mês/ano de referência da parcela, no formato AAAAMM.",
+                            "example": "202301",
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "mesAnoInicio_cgu_cpgf_param_mesAnoInicio": {
+                            "original_name": "mesAnoInicio",
+                            "description": "Filtro obrigatório pelo mês/ano inicial da consulta, formato AAAAMM.",
+                            "example": 202301,
+                            "x-semantic-tag": "schema:startDate"
+                        },
+                        "mesAnoFim_cgu_cpgf_param_mesAnoFim": {
+                            "original_name": "mesAnoFim",
+                            "description": "Filtro obrigatório pelo mês/ano final da consulta, formato AAAAMM.",
+                            "example": 202303,
+                            "x-semantic-tag": "schema:endDate"
+                        },
+                        "codigoOrgao_cgu_cpgf_param_codigoOrgao": {
+                            "original_name": "codigoOrgao",
+                            "description": "Filtro opcional pelo código SIAFI do órgão superior do portador do cartão.",
+                            "example": "20101",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "cpfPortador_cgu_cpgf_param_cpfPortador": {
+                            "original_name": "cpfPortador",
+                            "description": "Filtro opcional pelo CPF do portador do cartão (anonimizado).",
+                            "example": "***.123.456-**",
+                            "x-semantic-tag": "taxID"
+                        },
+                        "pagina_cgu_cpgf_param_pagina": {
+                            "original_name": "pagina",
+                            "description": "Número da página desejada para a consulta paginada. O padrão é 1.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:pagination"
+                        },
+                        "id_cgu_cpgf_resp_id": {
+                            "original_name": "id",
+                            "description": "Identificador único da transação realizada com o cartão.",
+                            "example": 9876543,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "dataTransacao_cgu_cpgf_resp_dataTransacao": {
+                            "original_name": "dataTransacao",
+                            "description": "A data em que a transação foi realizada, no formato DD/MM/AAAA.",
+                            "example": "20/01/2023",
+                            "x-semantic-tag": "schema:paymentDate"
+                        },
+                        "valorTransacao_cgu_cpgf_resp_valorTransacao": {
+                            "original_name": "valorTransacao",
+                            "description": "O valor da transação realizada com o cartão.",
+                            "example": 150.75,
+                            "x-semantic-tag": "schema:totalPaymentDue"
+                        },
+                        "tipoCartao_cgu_cpgf_resp_tipoCartao": {
+                            "original_name": "tipoCartao",
+                            "description": "O tipo do Cartão de Pagamento do Governo Federal utilizado (Pagamento ou Saque).",
+                            "example": "Pagamento ",
+                            "x-semantic-tag": "schema:category"
+                        },
+                        "estabelecimento_cgu_cpgf_resp_estabelecimento": {
+                            "original_name": "estabelecimento",
+                            "description": "Objeto contendo informações sobre o estabelecimento onde a compra foi realizada.",
+                            "example": "{ \"nome\": \"PAPELARIA ABC LTDA\", \"cnpjFormatado\": \"00.000.000/0001-91\", ... }",
+                            "x-semantic-tag": "schema:seller"
+                        },
+                        "nome_cgu_cpgf_resp_estabelecimento_nome": {
+                            "original_name": "nome",
+                            "description": "O nome fantasia ou razão social do estabelecimento.",
+                            "example": "PAPELARIA ABC LTDA",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "cnpjFormatado_cgu_cpgf_resp_estabelecimento_cnpjFormatado": {
+                            "original_name": "cnpjFormatado",
+                            "description": "O CNPJ do estabelecimento, formatado.",
+                            "example": "00.000.000/0001-91",
+                            "x-semantic-tag": "schema:taxID"
+                        },
+                        "localidade_cgu_cpgf_resp_estabelecimento_localidade": {
+                            "original_name": "localidade",
+                            "description": "A cidade onde o estabelecimento está localizado.",
+                            "example": "BRASILIA",
+                            "x-semantic-tag": "schema:City"
+                        },
+                        "uf_cgu_cpgf_resp_estabelecimento_uf": {
+                            "original_name": "uf",
+                            "description": "Objeto contendo informações sobre a UF do estabelecimento.",
+                            "example": "{ \"sigla\": \"DF\", \"nome\": \"Distrito Federal\" }",
+                            "x-semantic-tag": "schema:State"
+                        },
+                        "portador_cgu_cpgf_resp_portador": {
+                            "original_name": "portador",
+                            "description": "Objeto contendo informações sobre o servidor público portador do cartão.",
+                            "example": "{ \"cpfFormatado\": \"***.123.456-**\", \"nome\": \"NOME SERVIDOR\" }",
+                            "x-semantic-tag": "schema:customer"
+                        },
+                        "cpfFormatado_cgu_cpgf_resp_portador_cpfFormatado": {
+                            "original_name": "cpfFormatado",
+                            "description": "O CPF do portador do cartão (anonimizado).",
+                            "example": "***.123.456-**",
+                            "x-semantic-tag": "schema:taxID"
+                        },
+                        "nome_cgu_cpgf_resp_portador_nome": {
+                            "original_name": "nome",
+                            "description": "O nome do servidor público portador do cartão.",
+                            "example": "NOME SERVIDOR",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "unidadeGestora_cgu_cpgf_resp_unidadeGestora": {
+                            "original_name": "unidadeGestora",
+                            "description": "Objeto contendo informações sobre a unidade gestora responsável pelo cartão.",
+                            "example": "{ \"codigo\": \"110001\", \"nome\": \"PRESIDENCIA DA REPUBLICA\", ... }",
+                            "x-semantic-tag": "schema:department"
+                        },
+                        "codigo_cgu_cpgf_resp_unidadeGestora_codigo": {
+                            "original_name": "codigo",
+                            "description": "O código SIAFI da unidade gestora.",
+                            "example": "110001",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_cgu_cpgf_resp_unidadeGestora_nome": {
+                            "original_name": "nome",
+                            "description": "O nome da unidade gestora.",
+                            "example": "PRESIDENCIA DA REPUBLICA",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "orgaoVinculado_cgu_cpgf_resp_unidadeGestora_orgaoVinculado": {
+                            "original_name": "orgaoVinculado",
+                            "description": "Objeto contendo informações sobre o órgão ao qual a unidade gestora está vinculada.",
+                            "example": "{ \"codigoSIAFI\": \"20101\", \"cnpj\": \"00.394.411/0001-09\", ... }",
+                            "x-semantic-tag": "schema:parentOrganization"
+                        },
+                        "codigoSIAFI_cgu_cpgf_resp_unidadeGestora_orgaoVinculado_codigoSIAFI": {
+                            "original_name": "codigoSIAFI",
+                            "description": "O código SIAFI do órgão vinculado.",
+                            "example": "20101",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "cnpj_cgu_cpgf_resp_unidadeGestora_orgaoVinculado_cnpj": {
+                            "original_name": "cnpj",
+                            "description": "O CNPJ do órgão vinculado (formatado).",
+                            "example": "00.394.411/0001-09",
+                            "x-semantic-tag": "schema:taxID"
+                        },
+                        "nome_cgu_cpgf_resp_unidadeGestora_orgaoVinculado_nome": {
+                            "original_name": "nome",
+                            "description": "O nome do órgão vinculado.",
+                            "example": "PRESIDÊNCIA DA REPÚBLICA",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "dataIdaInicio_cgu_viagens_param_dataIdaInicio": {
+                            "original_name": "dataIdaInicio",
+                            "description": "Filtro obrigatório pela data inicial de ida da viagem, formato DD/MM/AAAA.",
+                            "example": "01/01/2023",
+                            "x-semantic-tag": "schema:departureTime"
+                        },
+                        "dataIdaFim_cgu_viagens_param_dataIdaFim": {
+                            "original_name": "dataIdaFim",
+                            "description": "Filtro obrigatório pela data final de ida da viagem, formato DD/MM/AAAA.",
+                            "example": "31/01/2023",
+                            "x-semantic-tag": "schema:arrivalTime"
+                        },
+                        "codigoOrgao_cgu_viagens_param_codigoOrgao": {
+                            "original_name": "codigoOrgao",
+                            "description": "Filtro opcional pelo código SIAFI do órgão superior do viajante.",
+                            "example": "20101",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "cpfViajante_cgu_viagens_param_cpfViajante": {
+                            "original_name": "cpfViajante",
+                            "description": "Filtro opcional pelo CPF do viajante (anonimizado).",
+                            "example": "***.123.456-**",
+                            "x-semantic-tag": "taxID"
+                        },
+                        "pagina_cgu_viagens_param_pagina": {
+                            "original_name": "pagina",
+                            "description": "Número da página desejada para a consulta paginada. O padrão é 1.",
+                            "example": 1,
+                            "x-semantic-tag": "schema:pagination"
+                        },
+                        "id_cgu_viagens_resp_id": {
+                            "original_name": "id",
+                            "description": "Identificador único da viagem no sistema.",
+                            "example": 11223344,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "dataInicioAfastamento_cgu_viagens_resp_dataInicioAfastamento": {
+                            "original_name": "dataInicioAfastamento",
+                            "description": "Data de início do afastamento (viagem), formato DD/MM/AAAA.",
+                            "example": "15/01/2023",
+                            "x-semantic-tag": "schema:startDate"
+                        },
+                        "dataFimAfastamento_cgu_viagens_resp_dataFimAfastamento": {
+                            "original_name": "dataFimAfastamento",
+                            "description": "Data de fim do afastamento (viagem), formato DD/MM/AAAA.",
+                            "example": "20/01/2023",
+                            "x-semantic-tag": "schema:endDate"
+                        },
+                        "situacao_cgu_viagens_resp_situacao": {
+                            "original_name": "situacao",
+                            "description": "Status da viagem (Realizada, Cancelada, etc.).",
+                            "example": "Realizada",
+                            "x-semantic-tag": "schema:status"
+                        },
+                        "valorDiarias_cgu_viagens_resp_valorDiarias": {
+                            "original_name": "valorDiarias",
+                            "description": "Valor total pago em diárias para a viagem.",
+                            "example": 1200.5,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "valorPassagens_cgu_viagens_resp_valorPassagens": {
+                            "original_name": "valorPassagens",
+                            "description": "Valor total gasto com passagens para a viagem.",
+                            "example": 850.0,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "valorOutrosGastos_cgu_viagens_resp_valorOutrosGastos": {
+                            "original_name": "valorOutrosGastos",
+                            "description": "Valor de outros gastos relacionados à viagem.",
+                            "example": 50.0,
+                            "x-semantic-tag": "schema:value"
+                        },
+                        "pessoa_cgu_viagens_resp_pessoa": {
+                            "original_name": "pessoa",
+                            "description": "Objeto contendo informações sobre a pessoa que realizou a viagem (viajante).",
+                            "example": "{ \"cpfFormatado\": \"***.123.456-**\", \"nome\": \"NOME SERVIDOR\", ... }",
+                            "x-semantic-tag": "schema:participant"
+                        },
+                        "cpfFormatado_cgu_viagens_resp_pessoa_cpfFormatado": {
+                            "original_name": "cpfFormatado",
+                            "description": "O CPF do viajante (anonimizado).",
+                            "example": "***.123.456-**",
+                            "x-semantic-tag": "schema:taxID"
+                        },
+                        "nome_cgu_viagens_resp_pessoa_nome": {
+                            "original_name": "nome",
+                            "description": "O nome do viajante.",
+                            "example": "NOME SERVIDOR",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "orgao_cgu_viagens_resp_orgao": {
+                            "original_name": "orgao",
+                            "description": "Objeto contendo informações sobre o órgão do viajante.",
+                            "example": "{ \"codigoSIAFI\": \"20101\", \"nome\": \"PRESIDÊNCIA DA REPÚBLICA\", ... }",
+                            "x-semantic-tag": "schema:funder"
+                        },
+                        "codigoSIAFI_cgu_viagens_resp_orgao_codigoSIAFI": {
+                            "original_name": "codigoSIAFI",
+                            "description": "O código SIAFI do órgão superior do viajante.",
+                            "example": "20101",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "nome_cgu_viagens_resp_orgao_nome": {
+                            "original_name": "nome",
+                            "description": "O nome do órgão superior do viajante.",
+                            "example": "PRESIDÊNCIA DA REPÚBLICA",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "sigla_cgu_viagens_resp_orgao_sigla": {
+                            "original_name": "sigla",
+                            "description": "A sigla do órgão superior do viajante.",
+                            "example": "PR",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "descricaoPoder_cgu_viagens_resp_orgao_descricaoPoder": {
+                            "original_name": "descricaoPoder",
+                            "description": "O poder ao qual o órgão pertence (Executivo, Legislativo, Judiciário).",
+                            "example": "Executivo",
+                            "x-semantic-tag": "schema:category"
+                        },
+                        "cargo_cgu_viagens_resp_cargo": {
+                            "original_name": "cargo",
+                            "description": "Objeto contendo informações sobre o cargo do viajante (pode ser nulo).",
+                            "example": "{ \"codigo\": \"1234\", \"descricao\": \"ASSESSOR\" }",
+                            "x-semantic-tag": "schema:role"
+                        },
+                        "codigo_cgu_viagens_resp_cargo_codigo": {
+                            "original_name": "codigo",
+                            "description": "O código do cargo ou função do viajante.",
+                            "example": "1234",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "descricao_cgu_viagens_resp_cargo_descricao": {
+                            "original_name": "descricao",
+                            "description": "A descrição do cargo ou função do viajante.",
+                            "example": "ASSESSOR",
+                            "x-semantic-tag": "schema:jobTitle"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "SENADO": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Golden Dataset - API SENADO",
+            "version": "1.0.0",
+            "description": "Mapeamento semântico adjudicado por especialistas."
+        },
+        "components": {
+            "schemas": {
+                "Fields": {
+                    "type": "object",
+                    "properties": {
+                        "sigla_senado_materias_get_param_sigla": {
+                            "original_name": "sigla",
+                            "description": "Filtra as matérias pela sigla do tipo (ex: PLS para Projeto de Lei do Senado).",
+                            "example": "PLS",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "numero_senado_materias_get_param_numero": {
+                            "original_name": "numero",
+                            "description": "Filtra as matérias pelo número.",
+                            "example": 186,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "ano_senado_materias_get_param_ano": {
+                            "original_name": "ano",
+                            "description": "Filtra as matérias pelo ano de apresentação.",
+                            "example": 2023,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "autor_senado_materias_get_param_autor": {
+                            "original_name": "autor",
+                            "description": "Filtra as matérias pelo código do parlamentar autor.",
+                            "example": 5970,
+                            "x-semantic-tag": "schema:author"
+                        },
+                        "Codigo_senado_materias_get_resp_Codigo": {
+                            "original_name": "Codigo",
+                            "description": "O código identificador único da matéria legislativa no sistema do Senado.",
+                            "example": 156000,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "Sigla_senado_materias_get_resp_Sigla": {
+                            "original_name": "Sigla",
+                            "description": "A sigla do tipo da matéria (PLS, PEC, etc.).",
+                            "example": "PLS",
+                            "x-semantic-tag": "schema:alternateName"
+                        },
+                        "Numero_senado_materias_get_resp_Numero": {
+                            "original_name": "Numero",
+                            "description": "O número sequencial da matéria dentro do seu tipo e ano.",
+                            "example": 186,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "Ano_senado_materias_get_resp_Ano": {
+                            "original_name": "Ano",
+                            "description": "O ano em que a matéria foi apresentada.",
+                            "example": 2023,
+                            "x-semantic-tag": "schema:dateCreated"
+                        },
+                        "Ementa_senado_materias_get_resp_Ementa": {
+                            "original_name": "Ementa",
+                            "description": "O texto resumo (ementa) que descreve o objetivo da matéria legislativa.",
+                            "example": "Altera a Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha), para prever a criação de Delegacias Especializadas de Atendimento à Mulher (Deams) com funcionamento ininterrupto.",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "Data_senado_materias_get_resp_Data": {
+                            "original_name": "Data",
+                            "description": "A data em que a matéria foi apresentada, no formato AAAA-MM-DD.",
+                            "example": "2023-04-18",
+                            "x-semantic-tag": "schema:dateCreated"
+                        },
+                        "DescricaoIdentificacao_senado_materias_get_resp_DescricaoIdentificacao": {
+                            "original_name": "DescricaoIdentificacao",
+                            "description": "A identificação completa da matéria, incluindo tipo, número e ano.",
+                            "example": "Projeto de Lei do Senado nº 186, de 2023",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "id_senado_materia_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O código da matéria para buscar seus detalhes.",
+                            "example": 156000,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "Codigo_senado_materia_get_by_id_resp_Codigo": {
+                            "original_name": "Codigo",
+                            "description": "Código da matéria retornada.",
+                            "example": 156000,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "CodigoCasa_senado_materia_get_by_id_resp_CasaIdentificacao_CodigoCasa": {
+                            "original_name": "CodigoCasa",
+                            "description": "Código numérico que identifica a Casa Legislativa (1=Câmara, 2=Senado).",
+                            "example": 2,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "NomeCasa_senado_materia_get_by_id_resp_CasaIdentificacao_NomeCasa": {
+                            "original_name": "NomeCasa",
+                            "description": "Nome da Casa Legislativa.",
+                            "example": "Senado Federal",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "DescricaoTipo_senado_materia_get_by_id_resp_DescricaoTipo": {
+                            "original_name": "DescricaoTipo",
+                            "description": "Descrição textual do tipo da matéria.",
+                            "example": "Projeto de Lei do Senado",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "IndicadorTramitando_senado_materia_get_by_id_resp_IndicadorTramitando": {
+                            "original_name": "IndicadorTramitando",
+                            "description": "Indicador textual ('Sim' ou 'Não') se a matéria ainda está em tramitação.",
+                            "example": "Sim",
+                            "x-semantic-tag": "schema:status"
+                        },
+                        "Codigo (Natureza)_senado_materia_get_by_id_resp_Natureza_Codigo": {
+                            "original_name": "Codigo (Natureza)",
+                            "description": "Código numérico da natureza da matéria (ex: Legislativa, Orçamentária).",
+                            "example": 1,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "Descricao (Natureza)_senado_materia_get_by_id_resp_Natureza_Descricao": {
+                            "original_name": "Descricao (Natureza)",
+                            "description": "Descrição textual da natureza da matéria.",
+                            "example": "Legislativa",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "DescricaoSituacao_senado_materia_get_by_id_resp_SituacaoAtual_DescricaoSituacao": {
+                            "original_name": "DescricaoSituacao",
+                            "description": "Descrição textual da situação atual da matéria na tramitação (ex: AGUARDANDO DESIGNAÇÃO DO RELATOR, APROVADA).",
+                            "example": "APROVADA",
+                            "x-semantic-tag": "schema:status"
+                        },
+                        "CodigoParlamentar_senado_materia_get_by_id_resp_Autoria_Autor_CodigoParlamentar": {
+                            "original_name": "CodigoParlamentar",
+                            "description": "O código identificador do parlamentar autor da matéria.",
+                            "example": 5970,
+                            "x-semantic-tag": "schema:author"
+                        },
+                        "NomeParlamentar_senado_materia_get_by_id_resp_Autoria_Autor_NomeParlamentar": {
+                            "original_name": "NomeParlamentar",
+                            "description": "O nome parlamentar do autor da matéria.",
+                            "example": "Rodrigo Pacheco",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "SiglaPartido_senado_materia_get_by_id_resp_Autoria_Autor_SiglaPartido": {
+                            "original_name": "SiglaPartido",
+                            "description": "A sigla do partido do autor no momento da autoria.",
+                            "example": "PSD",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "Uf_senado_materia_get_by_id_resp_Autoria_Autor_Uf": {
+                            "original_name": "Uf",
+                            "description": "A sigla da UF do autor no momento da autoria.",
+                            "example": "MG",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "legis_senado_parlamentar_lista_get_param_legis": {
+                            "original_name": "legis",
+                            "description": "Filtra a lista de parlamentares por legislatura (padrão é a atual).",
+                            "example": 57,
+                            "x-semantic-tag": "schema:temporalCoverage"
+                        },
+                        "CodigoParlamentar_senado_parlamentar_lista_get_resp_CodigoParlamentar": {
+                            "original_name": "CodigoParlamentar",
+                            "description": "O código identificador único do parlamentar (Senador).",
+                            "example": 5970,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "NomeParlamentar_senado_parlamentar_lista_get_resp_NomeParlamentar": {
+                            "original_name": "NomeParlamentar",
+                            "description": "O nome parlamentar do senador.",
+                            "example": "Rodrigo Pacheco",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "NomeCompletoParlamentar_senado_parlamentar_lista_get_resp_NomeCompletoParlamentar": {
+                            "original_name": "NomeCompletoParlamentar",
+                            "description": "O nome civil completo do senador.",
+                            "example": "Rodrigo Otavio Soares Pacheco",
+                            "x-semantic-tag": "schema:legalName"
+                        },
+                        "SexoParlamentar_senado_parlamentar_lista_get_resp_SexoParlamentar": {
+                            "original_name": "SexoParlamentar",
+                            "description": "O sexo do senador.",
+                            "example": "Masculino",
+                            "x-semantic-tag": "schema:gender"
+                        },
+                        "FormaTratamento_senado_parlamentar_lista_get_resp_FormaTratamento": {
+                            "original_name": "FormaTratamento",
+                            "description": "A forma de tratamento protocolar (Senador ou Senadora).",
+                            "example": "Senador",
+                            "x-semantic-tag": "schema:honorificPrefix"
+                        },
+                        "UrlFotoParlamentar_senado_parlamentar_lista_get_resp_UrlFotoParlamentar": {
+                            "original_name": "UrlFotoParlamentar",
+                            "description": "A URL para a foto oficial do senador.",
+                            "example": "http://www.senado.leg.br/senadores/img/fotos-oficiais/senador5970.jpg",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "UrlPaginaParlamentar_senado_parlamentar_lista_get_resp_UrlPaginaParlamentar": {
+                            "original_name": "UrlPaginaParlamentar",
+                            "description": "A URL para a página oficial do senador no site do Senado.",
+                            "example": "http://www25.senado.leg.br/web/senadores/senador/-/perfil/5970",
+                            "x-semantic-tag": "schema:url"
+                        },
+                        "EmailParlamentar_senado_parlamentar_lista_get_resp_EmailParlamentar": {
+                            "original_name": "EmailParlamentar",
+                            "description": "O endereço de e-mail institucional do senador.",
+                            "example": "rodrigo.pacheco@senador.leg.br",
+                            "x-semantic-tag": "schema:ContactPoint"
+                        },
+                        "SiglaPartidoParlamentar_senado_parlamentar_lista_get_resp_SiglaPartidoParlamentar": {
+                            "original_name": "SiglaPartidoParlamentar",
+                            "description": "A sigla do partido atual do senador.",
+                            "example": "PSD",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "UfParlamentar_senado_parlamentar_lista_get_resp_UfParlamentar": {
+                            "original_name": "UfParlamentar",
+                            "description": "A sigla da UF de representação do senador.",
+                            "example": "MG",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "id_senado_parlamentar_get_by_id_param_id": {
+                            "original_name": "id",
+                            "description": "O código do parlamentar para buscar seus detalhes.",
+                            "example": 5970,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "DataNascimento_senado_parlamentar_get_by_id_resp_DataNascimento": {
+                            "original_name": "DataNascimento",
+                            "description": "A data de nascimento do senador.",
+                            "example": "1976-11-13",
+                            "x-semantic-tag": "schema:birthDate"
+                        },
+                        "Naturalidade_senado_parlamentar_get_by_id_resp_Naturalidade": {
+                            "original_name": "Naturalidade",
+                            "description": "O município de nascimento do senador.",
+                            "example": "Porto Velho",
+                            "x-semantic-tag": "schema:birthPlace"
+                        },
+                        "UfNaturalidade_senado_parlamentar_get_by_id_resp_UfNaturalidade": {
+                            "original_name": "UfNaturalidade",
+                            "description": "A UF de nascimento do senador.",
+                            "example": "RO",
+                            "x-semantic-tag": "schema:birthPlace"
+                        },
+                        "CodigoMandato_senado_parlamentar_get_by_id_resp_Mandato_CodigoMandato": {
+                            "original_name": "CodigoMandato",
+                            "description": "O código identificador do mandato atual ou mais recente do senador.",
+                            "example": 23456,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "DescricaoParticipacao_senado_parlamentar_get_by_id_resp_Mandato_DescricaoParticipacao": {
+                            "original_name": "DescricaoParticipacao",
+                            "description": "A forma de participação do senador no mandato (Titular, 1º Suplente, etc.).",
+                            "example": "Titular",
+                            "x-semantic-tag": "schema:roleName"
+                        },
+                        "DataInicio (Exercicio)_senado_parlamentar_get_by_id_resp_Mandato_MandatoExercicio_DataInicio": {
+                            "original_name": "DataInicio (Exercicio)",
+                            "description": "Data de início do exercício do mandato atual.",
+                            "example": "2019-02-01",
+                            "x-semantic-tag": "schema:startDate"
+                        },
+                        "materia_senado_votacao_get_param_materia": {
+                            "original_name": "materia",
+                            "description": "O código da matéria para listar suas votações.",
+                            "example": 156000,
+                            "x-semantic-tag": "schema:about"
+                        },
+                        "CodigoSessaoVotacao_senado_votacao_get_resp_CodigoSessaoVotacao": {
+                            "original_name": "CodigoSessaoVotacao",
+                            "description": "Código identificador da votação específica.",
+                            "example": "V00889",
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "CodigoSessao_senado_votacao_get_resp_CodigoSessao": {
+                            "original_name": "CodigoSessao",
+                            "description": "Código identificador da sessão legislativa em que a votação ocorreu.",
+                            "example": 65432,
+                            "x-semantic-tag": "schema:superEvent"
+                        },
+                        "DataSessao_senado_votacao_get_resp_DataSessao": {
+                            "original_name": "DataSessao",
+                            "description": "Data da sessão em que a votação ocorreu.",
+                            "example": "2023-11-29",
+                            "x-semantic-tag": "schema:startDate"
+                        },
+                        "DescricaoVotacao_senado_votacao_get_resp_DescricaoVotacao": {
+                            "original_name": "DescricaoVotacao",
+                            "description": "Descrição textual do que foi votado.",
+                            "example": "Votação, em turno único, do PLS nº 186, de 2023",
+                            "x-semantic-tag": "schema:description"
+                        },
+                        "SiglaCasa_senado_votacao_get_resp_SiglaCasa": {
+                            "original_name": "SiglaCasa",
+                            "description": "Sigla da Casa onde a votação ocorreu (Senado Federal).",
+                            "example": "SF",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "CodigoTramitacao_senado_votacao_get_resp_CodigoTramitacao": {
+                            "original_name": "CodigoTramitacao",
+                            "description": "Código identificador do passo de tramitação associado à votação.",
+                            "example": 1234567,
+                            "x-semantic-tag": "schema:identifier"
+                        },
+                        "SiglaResultado_senado_votacao_get_resp_Resultado_SiglaResultado": {
+                            "original_name": "SiglaResultado",
+                            "description": "Sigla que representa o resultado da votação (APV=Aprovado, REJ=Rejeitado, etc.).",
+                            "example": "APV",
+                            "x-semantic-tag": "schema:result"
+                        },
+                        "DescricaoResultado_senado_votacao_get_resp_Resultado_DescricaoResultado": {
+                            "original_name": "DescricaoResultado",
+                            "description": "Descrição textual do resultado da votação.",
+                            "example": "Aprovado",
+                            "x-semantic-tag": "schema:result"
+                        },
+                        "CodigoParlamentar (Voto)_senado_votacao_get_resp_Votos_VotoParlamentar_CodigoParlamentar": {
+                            "original_name": "CodigoParlamentar (Voto)",
+                            "description": "Código identificador do parlamentar que registrou o voto.",
+                            "example": 5970,
+                            "x-semantic-tag": "schema:agent"
+                        },
+                        "NomeParlamentar (Voto)_senado_votacao_get_resp_Votos_VotoParlamentar_NomeParlamentar": {
+                            "original_name": "NomeParlamentar (Voto)",
+                            "description": "Nome do parlamentar que registrou o voto.",
+                            "example": "Rodrigo Pacheco",
+                            "x-semantic-tag": "schema:name"
+                        },
+                        "SiglaPartido (Voto)_senado_votacao_get_resp_Votos_VotoParlamentar_SiglaPartido": {
+                            "original_name": "SiglaPartido (Voto)",
+                            "description": "Sigla do partido do parlamentar no momento do voto.",
+                            "example": "PSD",
+                            "x-semantic-tag": "schema:affiliation"
+                        },
+                        "SiglaUF (Voto)_senado_votacao_get_resp_Votos_VotoParlamentar_SiglaUF": {
+                            "original_name": "SiglaUF (Voto)",
+                            "description": "Sigla da UF do parlamentar no momento do voto.",
+                            "example": "MG",
+                            "x-semantic-tag": "schema:address"
+                        },
+                        "DescricaoVoto_senado_votacao_get_resp_Votos_VotoParlamentar_DescricaoVoto": {
+                            "original_name": "DescricaoVoto",
+                            "description": "O voto registrado pelo parlamentar (Sim, Não, Abstenção, etc.).",
+                            "example": "Sim",
+                            "x-semantic-tag": "schema:result"
+                        },
+                        "SiglaVoto_senado_votacao_get_resp_Votos_VotoParlamentar_SiglaVoto": {
+                            "original_name": "SiglaVoto",
+                            "description": "Sigla ou forma abreviada do voto registrado.",
+                            "example": "Sim",
+                            "x-semantic-tag": "schema:alternateName"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
